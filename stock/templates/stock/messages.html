@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fullstock - Mensagens</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link rel="stylesheet" href="styles/messages.css">
+</head>
+<body>
+    <div class="app-container">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2>Fullstock</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="products.html" class="nav-link">Produtos</a></li>
+                <li><a href="analytics.html" class="nav-link">Relatórios</a></li>
+                <li><a href="messages.html" class="nav-link active">Mensagens</a></li>
+                <li><a href="index.html" class="nav-link logout">Sair</a></li>
+            </ul>
+        </nav>
+        
+        <main class="main-content">
+            <header class="page-header">
+                <h1>Central de Mensagens</h1>
+                <button class="btn-primary">Nova Conversa</button>
+            </header>
+            
+            <div class="messages-container">
+                <div class="conversations-list">
+                    <div class="conversation-item active" onclick="selectConversation(1)">
+                        <div class="avatar">AD</div>
+                        <div class="conversation-info">
+                            <div class="conversation-header">
+                                <h4>Administrador</h4>
+                                <span class="time">10:45</span>
+                            </div>
+                            <p class="last-message">Relatório mensal disponível</p>
+                        </div>
+                        <div class="unread-badge">2</div>
+                    </div>
+                    
+                    <div class="conversation-item" onclick="selectConversation(2)">
+                        <div class="avatar">MS</div>
+                        <div class="conversation-info">
+                            <div class="conversation-header">
+                                <h4>Maria Silva</h4>
+                                <span class="time">Ontem</span>
+                            </div>
+                            <p class="last-message">Problema com produto recebido</p>
+                        </div>
+                    </div>
+                    
+                    <div class="conversation-item" onclick="selectConversation(3)">
+                        <div class="avatar">JP</div>
+                        <div class="conversation-info">
+                            <div class="conversation-header">
+                                <h4>João Paulo</h4>
+                                <span class="time">18/01</span>
+                            </div>
+                            <p class="last-message">Obrigado pelo atendimento!</p>
+                        </div>
+                    </div>
+                    
+                    <div class="conversation-item" onclick="selectConversation(4)">
+                        <div class="avatar">AC</div>
+                        <div class="conversation-info">
+                            <div class="conversation-header">
+                                <h4>Ana Costa</h4>
+                                <span class="time">17/01</span>
+                            </div>
+                            <p class="last-message">Quando chega meu pedido?</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chat-area">
+                    <div class="chat-header">
+                        <div class="chat-user">
+                            <div class="avatar">AD</div>
+                            <div class="user-info">
+                                <h4>Administrador</h4>
+                                <span class="status online">Online</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="messages-area" id="messagesArea">
+                        <div class="message received">
+                            <div class="message-content">
+                                <p>Bom dia! O relatório mensal de vendas já está disponível no sistema.</p>
+                                <span class="message-time">09:30</span>
+                            </div>
+                        </div>
+                        
+                        <div class="message received">
+                            <div class="message-content">
+                                <p>Verifique as métricas de performance na aba de relatórios.</p>
+                                <span class="message-time">09:31</span>
+                            </div>
+                        </div>
+                        
+                        <div class="message sent">
+                            <div class="message-content">
+                                <p>Perfeito, obrigado! Vou analisar os dados agora.</p>
+                                <span class="message-time">10:45</span>
+                            </div>
+                        </div>
+                        
+                        <div class="message received">
+                            <div class="message-content">
+                                <p>Qualquer dúvida, estou à disposição!</p>
+                                <span class="message-time">10:46</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="message-input-area">
+                        <input type="text" id="messageInput" placeholder="Digite sua mensagem..." onkeypress="handleKeyPress(event)">
+                        <button class="send-button" onclick="sendMessage()">Enviar</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function selectConversation(id) {
+            document.querySelectorAll('.conversation-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+            
+            // Remove unread badge
+            const badge = event.currentTarget.querySelector('.unread-badge');
+            if (badge) badge.style.display = 'none';
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+            
+            if (message) {
+                const messagesArea = document.getElementById('messagesArea');
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message sent';
+                
+                const now = new Date();
+                const time = now.getHours().toString().padStart(2, '0') + ':' + 
+                            now.getMinutes().toString().padStart(2, '0');
+                
+                messageDiv.innerHTML = `
+                    <div class="message-content">
+                        <p>${message}</p>
+                        <span class="message-time">${time}</span>
+                    </div>
+                `;
+                
+                messagesArea.appendChild(messageDiv);
+                messagesArea.scrollTop = messagesArea.scrollHeight;
+                
+                input.value = '';
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+    </script>
+</body>
+</html>

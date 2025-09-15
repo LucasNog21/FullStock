@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fullstock - Detalhes do Produto</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link rel="stylesheet" href="styles/product-detail.css">
+</head>
+<body>
+    <div class="app-container">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2>Fullstock</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="products.html" class="nav-link">Produtos</a></li>
+                <li><a href="analytics.html" class="nav-link">Relatórios</a></li>
+                <li><a href="messages.html" class="nav-link">Mensagens</a></li>
+                <li><a href="index.html" class="nav-link logout">Sair</a></li>
+            </ul>
+        </nav>
+        
+        <main class="main-content">
+            <header class="page-header">
+                <button class="btn-back" onclick="history.back()">← Voltar</button>
+                <h1>Detalhes do Produto</h1>
+            </header>
+            
+            <div class="product-detail-container">
+                <div class="product-main">
+                    <div class="product-image">
+                        <img src="https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?w=600&h=400&fit=crop" alt="Notebook Dell" id="productImage">
+                    </div>
+                    
+                    <div class="product-info">
+                        <h1 id="productName">Notebook Dell Inspiron 15 3000</h1>
+                        <p class="product-description" id="productDescription">
+                            Notebook ideal para trabalho e estudos, equipado com processador Intel Core i5 de 11ª geração, 
+                            8GB de memória RAM DDR4, SSD de 256GB para inicialização rápida e tela de 15.6" com resolução HD. 
+                            Design elegante e portátil, perfeito para o dia a dia.
+                        </p>
+                        
+                        <div class="price-section">
+                            <p class="price" id="productPrice">R$ 2.899,00</p>
+                            <p class="stock-info" id="stockInfo">✅ Em estoque (15 unidades)</p>
+                        </div>
+                        
+                        <div class="rating-section">
+                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                            <span class="rating-text">4.5 (32 avaliações)</span>
+                        </div>
+                        
+                        <div class="purchase-section">
+                            <div class="quantity-selector">
+                                <label for="quantity">Quantidade:</label>
+                                <select id="quantity">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                            
+                            <div class="action-buttons">
+                                <button class="btn-primary btn-buy" onclick="buyProduct()">Comprar Agora</button>
+                                <button class="btn-secondary btn-cart">Adicionar ao Carrinho</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-tabs">
+                    <div class="tabs">
+                        <button class="tab-button active" onclick="showTab('specifications')">Especificações</button>
+                        <button class="tab-button" onclick="showTab('reviews')">Avaliações</button>
+                    </div>
+                    
+                    <div class="tab-content">
+                        <div id="specifications" class="tab-pane active">
+                            <div class="specifications-grid">
+                                <div class="spec-item">
+                                    <strong>Processador:</strong>
+                                    <span>Intel Core i5-1135G7</span>
+                                </div>
+                                <div class="spec-item">
+                                    <strong>Memória:</strong>
+                                    <span>8GB DDR4</span>
+                                </div>
+                                <div class="spec-item">
+                                    <strong>Armazenamento:</strong>
+                                    <span>SSD 256GB</span>
+                                </div>
+                                <div class="spec-item">
+                                    <strong>Tela:</strong>
+                                    <span>15.6" HD (1366x768)</span>
+                                </div>
+                                <div class="spec-item">
+                                    <strong>Placa Gráfica:</strong>
+                                    <span>Intel Iris Xe</span>
+                                </div>
+                                <div class="spec-item">
+                                    <strong>Sistema:</strong>
+                                    <span>Windows 11 Home</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="reviews" class="tab-pane">
+                            <div class="reviews-container">
+                                <div class="review-form">
+                                    <h3>Deixe sua avaliação</h3>
+                                    <div class="rating-input">
+                                        <span>Nota:</span>
+                                        <div class="star-rating">
+                                            <span class="star" data-rating="1">☆</span>
+                                            <span class="star" data-rating="2">☆</span>
+                                            <span class="star" data-rating="3">☆</span>
+                                            <span class="star" data-rating="4">☆</span>
+                                            <span class="star" data-rating="5">☆</span>
+                                        </div>
+                                    </div>
+                                    <textarea placeholder="Escreva sua avaliação..."></textarea>
+                                    <button class="btn-primary" onclick="submitReview()">Enviar Avaliação</button>
+                                </div>
+                                
+                                <div class="reviews-list">
+                                    <div class="review">
+                                        <div class="review-header">
+                                            <strong>João Silva</strong>
+                                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                                            <span class="review-date">15/01/2024</span>
+                                        </div>
+                                        <p>Excelente notebook! Muito rápido e a bateria dura bastante. Recomendo!</p>
+                                    </div>
+                                    
+                                    <div class="review">
+                                        <div class="review-header">
+                                            <strong>Maria Oliveira</strong>
+                                            <div class="stars">⭐⭐⭐⭐☆</div>
+                                            <span class="review-date">10/01/2024</span>
+                                        </div>
+                                        <p>Bom custo-benefício. A tela poderia ter melhor resolução, mas atende às necessidades básicas.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function buyProduct() {
+            alert('Produto adicionado ao carrinho! Redirecionando para pagamento...');
+        }
+
+        function submitReview() {
+            alert('Avaliação enviada com sucesso!');
+        }
+
+        // Rating stars interaction
+        document.querySelectorAll('.star').forEach(star => {
+            star.addEventListener('click', function() {
+                const rating = this.dataset.rating;
+                document.querySelectorAll('.star').forEach((s, index) => {
+                    s.textContent = index < rating ? '★' : '☆';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

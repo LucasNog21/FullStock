@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fullstock - Dashboard</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+</head>
+<body>
+    <div class="app-container">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2>Fullstock</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html" class="nav-link active">Dashboard</a></li>
+                <li><a href="products.html" class="nav-link">Produtos</a></li>
+                <li><a href="analytics.html" class="nav-link">Relatórios</a></li>
+                <li><a href="messages.html" class="nav-link">Mensagens</a></li>
+                <li><a href="index.html" class="nav-link logout">Sair</a></li>
+            </ul>
+        </nav>
+        
+        <main class="main-content">
+            <header class="page-header">
+                <h1>Dashboard</h1>
+                <div class="user-info">
+                    <span>Bem-vindo, João!</span>
+                </div>
+            </header>
+            
+            <div class="dashboard-grid">
+                <div class="card metric-card">
+                    <div class="metric-icon products"></div>
+                    <div class="metric-info">
+                        <h3>Total de Produtos</h3>
+                        <p class="metric-value">156</p>
+                    </div>
+                </div>
+                
+                <div class="card metric-card">
+                    <div class="metric-icon sales"></div>
+                    <div class="metric-info">
+                        <h3>Vendas Hoje</h3>
+                        <p class="metric-value">42</p>
+                    </div>
+                </div>
+                
+                <div class="card metric-card">
+                    <div class="metric-icon revenue"></div>
+                    <div class="metric-info">
+                        <h3>Faturamento</h3>
+                        <p class="metric-value">R$ 12.580</p>
+                    </div>
+                </div>
+                
+                <div class="card metric-card">
+                    <div class="metric-icon stock"></div>
+                    <div class="metric-info">
+                        <h3>Estoque Baixo</h3>
+                        <p class="metric-value">8</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dashboard-content">
+                <div class="card recent-products">
+                    <h2>Produtos Recentes</h2>
+                    <div class="products-grid">
+                        <div class="product-card">
+                            <img src="https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?w=300&h=200&fit=crop" alt="Notebook Dell">
+                            <div class="product-info">
+                                <h3>Notebook Dell Inspiron</h3>
+                                <p class="price">R$ 2.899,00</p>
+                                <p class="stock">Estoque: 15</p>
+                            </div>
+                        </div>
+                        
+                        <div class="product-card">
+                            <img src="https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg?w=300&h=200&fit=crop" alt="Smartphone">
+                            <div class="product-info">
+                                <h3>Smartphone Galaxy A54</h3>
+                                <p class="price">R$ 1.599,00</p>
+                                <p class="stock">Estoque: 23</p>
+                            </div>
+                        </div>
+                        
+                        <div class="product-card">
+                            <img src="https://images.pexels.com/photos/1649771/pexels-photo-1649771.jpeg?w=300&h=200&fit=crop" alt="Headphone">
+                            <div class="product-info">
+                                <h3>Headphone Bluetooth</h3>
+                                <p class="price">R$ 299,00</p>
+                                <p class="stock">Estoque: 45</p>
+                            </div>
+                        </div>
+                        
+                        <div class="product-card">
+                            <img src="https://images.pexels.com/photos/2047905/pexels-photo-2047905.jpeg?w=300&h=200&fit=crop" alt="Tablet">
+                            <div class="product-info">
+                                <h3>Tablet iPad Air</h3>
+                                <p class="price">R$ 3.299,00</p>
+                                <p class="stock">Estoque: 8</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

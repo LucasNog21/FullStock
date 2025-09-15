@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fullstock - Produtos</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link rel="stylesheet" href="styles/products.css">
+</head>
+<body>
+    <div class="app-container">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2>Fullstock</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="products.html" class="nav-link active">Produtos</a></li>
+                <li><a href="analytics.html" class="nav-link">Relatórios</a></li>
+                <li><a href="messages.html" class="nav-link">Mensagens</a></li>
+                <li><a href="index.html" class="nav-link logout">Sair</a></li>
+            </ul>
+        </nav>
+        
+        <main class="main-content">
+            <header class="page-header">
+                <h1>Produtos</h1>
+                <button class="btn-primary">Adicionar Produto</button>
+            </header>
+            
+            <div class="products-container">
+                <div class="products-grid-large">
+                    <div class="product-card-large" onclick="openProduct(1)">
+                        <img src="https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?w=400&h=300&fit=crop" alt="Notebook Dell">
+                        <div class="product-info-large">
+                            <h3>Notebook Dell Inspiron 15 3000</h3>
+                            <p class="description">Intel Core i5, 8GB RAM, SSD 256GB, Tela 15.6"</p>
+                            <p class="price">R$ 2.899,00</p>
+                            <div class="product-stats">
+                                <span class="stock">Estoque: 15</span>
+                                <span class="rating">⭐ 4.5 (32 avaliações)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card-large" onclick="openProduct(2)">
+                        <img src="https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg?w=400&h=300&fit=crop" alt="Smartphone">
+                        <div class="product-info-large">
+                            <h3>Samsung Galaxy A54 5G</h3>
+                            <p class="description">128GB, Câmera 50MP, Tela 6.4", Android 13</p>
+                            <p class="price">R$ 1.599,00</p>
+                            <div class="product-stats">
+                                <span class="stock">Estoque: 23</span>
+                                <span class="rating">⭐ 4.3 (67 avaliações)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card-large" onclick="openProduct(3)">
+                        <img src="https://images.pexels.com/photos/1649771/pexels-photo-1649771.jpeg?w=400&h=300&fit=crop" alt="Headphone">
+                        <div class="product-info-large">
+                            <h3>Sony WH-CH720N Bluetooth</h3>
+                            <p class="description">Cancelamento de ruído, 35h bateria, Wireless</p>
+                            <p class="price">R$ 299,00</p>
+                            <div class="product-stats">
+                                <span class="stock">Estoque: 45</span>
+                                <span class="rating">⭐ 4.7 (89 avaliações)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card-large" onclick="openProduct(4)">
+                        <img src="https://images.pexels.com/photos/2047905/pexels-photo-2047905.jpeg?w=400&h=300&fit=crop" alt="Tablet">
+                        <div class="product-info-large">
+                            <h3>Apple iPad Air 5ª Geração</h3>
+                            <p class="description">64GB Wi-Fi, Chip M1, Tela Liquid Retina 10.9"</p>
+                            <p class="price">R$ 3.299,00</p>
+                            <div class="product-stats">
+                                <span class="stock low-stock">Estoque: 8</span>
+                                <span class="rating">⭐ 4.8 (156 avaliações)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card-large" onclick="openProduct(5)">
+                        <img src="https://images.pexels.com/photos/1038916/pexels-photo-1038916.jpeg?w=400&h=300&fit=crop" alt="Monitor">
+                        <div class="product-info-large">
+                            <h3>Monitor LG UltraWide 29"</h3>
+                            <p class="description">2560x1080, IPS, 75Hz, HDR10, USB-C</p>
+                            <p class="price">R$ 1.199,00</p>
+                            <div class="product-stats">
+                                <span class="stock">Estoque: 12</span>
+                                <span class="rating">⭐ 4.4 (43 avaliações)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card-large" onclick="openProduct(6)">
+                        <img src="https://images.pexels.com/photos/325153/pexels-photo-325153.jpeg?w=400&h=300&fit=crop" alt="Mouse">
+                        <div class="product-info-large">
+                            <h3>Mouse Gamer Logitech G502</h3>
+                            <p class="description">RGB, 25.600 DPI, 11 botões programáveis</p>
+                            <p class="price">R$ 189,00</p>
+                            <div class="product-stats">
+                                <span class="stock">Estoque: 67</span>
+                                <span class="rating">⭐ 4.6 (234 avaliações)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function openProduct(id) {
+            window.location.href = `product-detail.html?id=${id}`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fullstock - Cadastro</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/auth.css">
+</head>
+<body class="auth-body">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1 class="auth-logo">Fullstock</h1>
+                <p class="auth-subtitle">Criar Nova Conta</p>
+            </div>
+            
+            <form class="auth-form" id="registerForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nome">Nome Completo</label>
+                        <input type="text" id="nome" name="nome" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="apelido">Apelido</label>
+                        <input type="text" id="apelido" name="apelido" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="cpf">CPF</label>
+                    <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Confirmar Senha</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                </div>
+                
+                <button type="button" class="btn-primary" onclick="register()">Cadastrar</button>
+                
+                <div class="auth-links">
+                    <a href="index.html">Já tem conta? Faça login</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function register() {
+            alert('Cadastro realizado com sucesso!');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
