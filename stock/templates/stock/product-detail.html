@@ -1,30 +1,5 @@
-{%load static%}
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fullstock - Detalhes do Produto</title>
-    <link href="{% static 'css/main.css' %}" rel="stylesheet">
-    <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
-    <link href="{% static 'css/product-detail.css' %}" rel="stylesheet">
-</head>
-<body>
-    <div class="app-container">
-        <nav class="sidebar">
-            <div class="sidebar-header">
-                <h2>Fullstock</h2>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="{% url 'dashboard'%}" class="nav-link">Dashboard</a></li>
-                <li><a href="{% url 'products'%}" class="nav-link active">Produtos</a></li>
-                <li><a href="{% url 'analytics'%}" class="nav-link">Relatórios</a></li>
-                <li><a href="{% url 'messages'%}" class="nav-link">Mensagens</a></li>
-                <li><a href="{% url 'index'%}" class="nav-link logout">Sair</a></li>
-            </ul>
-        </nav>
-        
-        <main class="main-content">
+{%extends 'base.html'%}
+{% block main %}
             <header class="page-header">
                 <button class="btn-back" onclick="history.back()">← Voltar</button>
                 <h1>Detalhes do Produto</h1>
@@ -152,35 +127,4 @@
                     </div>
                 </div>
             </div>
-        </main>
-    </div>
-
-    <script>
-        function showTab(tabName) {
-            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
-            document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
-            
-            document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
-        }
-
-        function buyProduct() {
-            alert('Produto adicionado ao carrinho! Redirecionando para pagamento...');
-        }
-
-        function submitReview() {
-            alert('Avaliação enviada com sucesso!');
-        }
-
-        // Rating stars interaction
-        document.querySelectorAll('.star').forEach(star => {
-            star.addEventListener('click', function() {
-                const rating = this.dataset.rating;
-                document.querySelectorAll('.star').forEach((s, index) => {
-                    s.textContent = index < rating ? '★' : '☆';
-                });
-            });
-        });
-    </script>
-</body>
-</html>
+{%endblock%}
