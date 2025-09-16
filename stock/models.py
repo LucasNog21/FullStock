@@ -46,5 +46,5 @@ class Order(models.Model):
     orderDate = models.DateField()
     status = models.CharField(max_length=50)
 
-    def __str(self):
+    def __str__(self):
         return self.user + self.product

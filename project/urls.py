@@ -16,7 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from stock.views import index, products, dashboard, analytics, messages, register
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('index/', index, name='index'),
+    path('', products, name='products'),
+    path('dashboard/', dashboard, name='dashboard'),
+    path('analytics/', analytics, name='analytics'),
+    path('messages/', messages, name='messages'),
+    path('register/', register, name='register'),
+
+
 ]

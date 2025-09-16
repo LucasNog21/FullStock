@@ -1,11 +1,12 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fullstock - Login</title>
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/auth.css">
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+    <link href="{% static 'css/auth.css' %}" rel="stylesheet">
 </head>
 <body class="auth-body">
     <div class="auth-container">
@@ -29,7 +30,7 @@
                 <button type="button" class="btn-primary" onclick="login()">Entrar</button>
                 
                 <div class="auth-links">
-                    <a href="register.html">Não tem conta? Cadastre-se</a>
+                    <a href="{% url 'register'%}">Não tem conta? Cadastre-se</a>
                 </div>
             </form>
         </div>
