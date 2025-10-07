@@ -1,16 +1,11 @@
 from django.contrib import admin
-from .models import User, Admin, Product, Message, Order
+from .models import AdaptedUser, Product, Message, Order
 # Register your models here.
 
-@admin.register(User)
+@admin.register(AdaptedUser)
 class UserAdmin(admin.ModelAdmin):
     list_display = ("name", "username", "cpf", "address", "birthDate", "email", "password")
     search_fields = ("name", "username", "cpf", "address", "birthDate", "email", "password")
-
-@admin.register(Admin)
-class adminAdmin(admin.ModelAdmin):
-    list_display = ("name", "username", "cpf", "address", "birthDate", "email", "password", "adminLevel")
-    search_fields = ("name", "username", "cpf", "address", "birthDate", "email", "password", "adminLevel")
 
 
 @admin.register(Product)
