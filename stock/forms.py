@@ -21,3 +21,8 @@ class AdaptedUserCreationForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         self.fields['password1'].widget.attrs.update({'placeholder' : 'Senha'})
         self.fields['password2'].widget.attrs.update({'placeholder' : 'Confirme sua senha'})
+    
+
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(widget=forms.TextInput)
+    password = forms.CharField(widget=forms.PasswordInput)

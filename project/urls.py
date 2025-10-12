@@ -16,14 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from stock.views import index, products, dashboard, analytics, messages, register
+from stock.views import logoutView, loginView, products, dashboard, analytics, messages, register
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('products/', products, name='products'),
-    path('', index, name='index'),
+    path('', loginView, name='login'),
+    path('logout/', logoutView, name='logout'),
     path('dashboard/', dashboard, name='dashboard'),
     path('analytics/', analytics, name='analytics'),
     path('messages/', messages, name='messages'),

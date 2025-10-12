@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from . models import AdaptedUser, Product, Order, Message
-from .forms import AdaptedUserCreationForm
+from .forms import AdaptedUserCreationForm, LoginForm
 from django.contrib.auth.models import Group
+from django.contrib.auth import login, authenticate, logout
 
-def index(request):
-    return render(request, 'stock/index.html')
+def login(request):
+    return render(request, 'stock/login.html')
 
 def products(request):
     return render(request, 'stock/products.html')
@@ -27,9 +28,36 @@ def register(request):
 
         userGroup = Group.objects.get_or_create(name="USER")
         user.groups.add(userGroup)
-        return redirect('index')
+        return redirect('login')
     else:
         form = AdaptedUserCreationForm()
         
 
     return render(request, 'stock/register.html', {'form': form})
+
+def loginView(request):
+    if request.user.is_authenticated:
+        return redirect('products')
+    
+    if request.method == 'POST':
+        form = LoginForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                messages.success(request, f'Bem-vindo, {user.username}!')
+                return redirect(request.GET.get('next', 'products'))
+        else:
+            messages.error(request, 'Usuário ou senha inválidos')
+    else:
+        form = LoginForm()
+
+    return render(request, 'login.html', {'form': form})
+
+def logoutView(request):
+    logout(request)
+    messages.info(request, "Você saiu do sistema.")
+    return redirect('login')

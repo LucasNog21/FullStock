@@ -8,7 +8,7 @@ class AdaptedUser(AbstractUser):
     username = models.CharField(max_length=50, unique=True, null=False)
     cpf = models.CharField(max_length=11,unique=True, null=False)
     address = models.CharField(max_length=50, null=False)
-    birthDate = models.DateField()
+    birthDate = models.DateField(null=True)
     email = models.EmailField(max_length=254, null=False)
     password = models.CharField(max_length=50, null=False)
 
