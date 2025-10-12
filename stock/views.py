@@ -3,9 +3,7 @@ from . models import AdaptedUser, Product, Order, Message
 from .forms import AdaptedUserCreationForm, LoginForm
 from django.contrib.auth.models import Group
 from django.contrib.auth import login, authenticate, logout
-
-def login(request):
-    return render(request, 'stock/login.html')
+from django.contrib import messages
 
 def products(request):
     return render(request, 'stock/products.html')
@@ -48,16 +46,16 @@ def loginView(request):
 
             if user is not None:
                 login(request, user)
-                messages.success(request, f'Bem-vindo, {user.username}!')
+                # messages.success(request, f'Bem-vindo, {user.username}!')
                 return redirect(request.GET.get('next', 'products'))
         else:
             messages.error(request, 'Usuário ou senha inválidos')
     else:
         form = LoginForm()
 
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'stock/login.html', {'form': form})
 
 def logoutView(request):
     logout(request)
-    messages.info(request, "Você saiu do sistema.")
+    # messages.info(request, "Você saiu do sistema.")
     return redirect('login')
