@@ -14,22 +14,21 @@ def dashboard(request):
 def analytics(request):
     return render(request, 'stock/analytics.html')
 
-def messages(request):
+def messagesView(request):
     return render(request, 'stock/messages.html')
 
 def register(request):
-
     if request.method == 'POST':
         form = AdaptedUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-
-        userGroup = Group.objects.get_or_create(name="USER")
-        user.groups.add(userGroup)
-        return redirect('login')
+            userGroup, created = Group.objects.get_or_create(name="USER")
+            user.groups.add(userGroup)
+            return redirect('login')
+        else:
+            print(form.errors)
     else:
         form = AdaptedUserCreationForm()
-        
 
     return render(request, 'stock/register.html', {'form': form})
 
@@ -46,7 +45,7 @@ def loginView(request):
 
             if user is not None:
                 login(request, user)
-                # messages.success(request, f'Bem-vindo, {user.username}!')
+                messages.success(request, f'Bem-vindo, {user.username}!')
                 return redirect(request.GET.get('next', 'products'))
         else:
             messages.error(request, 'Usuário ou senha inválidos')
@@ -57,5 +56,5 @@ def loginView(request):
 
 def logoutView(request):
     logout(request)
-    # messages.info(request, "Você saiu do sistema.")
+    messages.info(request, "Você saiu do sistema.")
     return redirect('login')
