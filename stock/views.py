@@ -8,6 +8,9 @@ from django.contrib import messages
 def products(request):
     return render(request, 'stock/products.html')
 
+def createProduct(request): 
+    if 
+
 def dashboard(request):
     return render(request, 'stock/dashboard.html')
 
@@ -58,3 +61,4 @@ def logoutView(request):
     logout(request)
     messages.info(request, "Você saiu do sistema.")
     return redirect('login')
+

@@ -25,3 +25,21 @@ class AdaptedUserCreationForm(UserCreationForm):
 class LoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput)
     password = forms.CharField(widget=forms.PasswordInput)
+
+class ProductForm:
+    class Meta:
+        model = Product
+        fields = [
+            'name', 'quantity', 'allotment', 'dueDate', 'salePrice', 'productionPrice', 'description', 'image'
+        ]
+        widgets = {
+            'name' : forms.TextInput(attrs={'placeholder': 'Nome do produto'}),
+            'quantity' : forms.TextInput(attrs={'placeholder': 'Quantidade'}),
+            'allotment' : forms.TextInput(attrs={'placeholder': 'Lote do produto'}),
+            'dueDate' : forms.DateInput(attrs={'placeholder': 'Data de vencimento'}),
+            'salePrice' : forms.TextInput(attrs={'placeholder': 'Preço de venda'}),
+            'productionPrice' : forms.TextInput(attrs={'placeholder': 'Preço de produção'}),
+            'description' : forms.TextInput(attrs={'placeholder': 'Descrição'}),
+            'image' : forms.FileInput(),
+            
+        }
