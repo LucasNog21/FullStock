@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from . models import AdaptedUser, Product, Order, Message
-from .forms import AdaptedUserCreationForm, LoginForm
+from .forms import AdaptedUserCreationForm, LoginForm, ProductForm
 from django.contrib.auth.models import Group
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
@@ -9,7 +9,15 @@ def products(request):
     return render(request, 'stock/products.html')
 
 def createProduct(request): 
-    if 
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            form = ProductForm()
+    else:
+        form = ProductForm()
+    return render(request, "stock/product-form.html", {'form': form})
+
 
 def dashboard(request):
     return render(request, 'stock/dashboard.html')

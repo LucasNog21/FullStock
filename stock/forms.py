@@ -26,7 +26,7 @@ class LoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput)
     password = forms.CharField(widget=forms.PasswordInput)
 
-class ProductForm:
+class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = [
@@ -41,5 +41,4 @@ class ProductForm:
             'productionPrice' : forms.TextInput(attrs={'placeholder': 'Preço de produção'}),
             'description' : forms.TextInput(attrs={'placeholder': 'Descrição'}),
             'image' : forms.FileInput(),
-            
         }
