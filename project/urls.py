@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from stock.views import logoutView, loginView, products, dashboard, analytics, messagesView, register
+from stock.views import logoutView, loginView, products, dashboard, analytics, messagesView, register, createProduct
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -29,6 +29,11 @@ urlpatterns = [
     path('analytics/', analytics, name='analytics'),
     path('messages/', messagesView, name='messagesView'),
     path('register/', register, name='register'),
+    path('createProduct/', createProduct, name='createProduct')
+
 
 
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

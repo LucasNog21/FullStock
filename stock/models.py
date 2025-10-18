@@ -30,7 +30,7 @@ class Product(models.Model):
     salePrice = models.FloatField()
     productionPrice = models.FloatField()
     description = models.TextField()
-    image = models.ImageField(upload_to=None, blank=True, null=True)
+    image = models.ImageField(upload_to='products_image/', blank=True, null=True)
 
     def __str__(self):
         return self.name
