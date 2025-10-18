@@ -6,7 +6,9 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 
 def products(request):
-    return render(request, 'stock/products.html')
+    products = Product.objects.all()
+
+    return render(request, 'stock/products.html', {'products' : products})
 
 def createProduct(request): 
     if request.method == 'POST':
@@ -14,6 +16,9 @@ def createProduct(request):
         if form.is_valid():
             form.save()
             form = ProductForm()
+            return redirect('products')
+        else:
+            print(form.errors)
     else:
         form = ProductForm()
     return render(request, "stock/product-form.html", {'form': form})
