@@ -5,10 +5,10 @@
     <a class="btn-primary" href="{% url 'createProduct' %}">Adicionar Produto</a>
 </header>
 
-{% if products %}
+{% if product_list %}
 <div class="products-container">
     <div class="products-grid-large">
-        {% for product in products %}
+        {% for product in page_obj %}
         <div class="product-card-large">
             {% if product.image %}
             <img src="{{ product.image.url }}" alt="{{ product.name }}">
@@ -29,4 +29,5 @@
 <p>Nenhum produto cadastrado.</p>
 {% endif %}
 
+{% include 'pagination.html' %}
 {% endblock %}

@@ -4,11 +4,33 @@ from .forms import AdaptedUserCreationForm, LoginForm, ProductForm
 from django.contrib.auth.models import Group
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
+from utils.pagination import make_pagination, Paginator
+
 
 def products(request):
-    products = Product.objects.all()
+    product_list = Product.objects.all().order_by('id')  # Ordenação opcional
+    paginator = Paginator(product_list, 10)  # 🔹 10 itens por página
 
-    return render(request, 'stock/products.html', {'products' : products})
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    start_index = page_obj.start_index()
+    end_index = page_obj.end_index()
+    total_items = paginator.count
+
+    return render(
+        request,
+        'stock/products.html',
+        {
+            'products': products,
+            'product_list' : product_list,
+            'page_obj': page_obj,
+            'paginator': paginator,
+            'start_index': start_index,
+            'end_index': end_index,
+            'total_items': total_items,
+        }
+    )
 
 def createProduct(request): 
     if request.method == 'POST':
