@@ -5,6 +5,7 @@
     <a class="btn-primary" href="{% url 'createProduct' %}">Adicionar Produto</a>
 </header>
 
+{% include 'productFilter.html' %}
 {% if product_list %}
 <div class="products-container">
     <div class="products-grid-large">

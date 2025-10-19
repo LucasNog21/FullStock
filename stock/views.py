@@ -1,16 +1,19 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from . models import AdaptedUser, Product, Order, Message
-from .forms import AdaptedUserCreationForm, LoginForm, ProductForm
+from .forms import AdaptedUserCreationForm, LoginForm, ProductForm, ProductFilterForm
 from django.contrib.auth.models import Group
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from utils.pagination import make_pagination, Paginator
-
+from utils.verifyFilterForm import verifyFilter
 
 def products(request):
-    product_list = Product.objects.all().order_by('id')  # Ordenação opcional
-    paginator = Paginator(product_list, 10)  # 🔹 10 itens por página
+    product_list = Product.objects.all().order_by('id')
+    filter_form = ProductFilterForm(request.GET or None)
 
+    product_list = verifyFilter(filter_form, product_list)
+
+    paginator = Paginator(product_list, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -22,13 +25,13 @@ def products(request):
         request,
         'stock/products.html',
         {
-            'products': products,
-            'product_list' : product_list,
+            'product_list': product_list,
             'page_obj': page_obj,
             'paginator': paginator,
             'start_index': start_index,
             'end_index': end_index,
             'total_items': total_items,
+            'filter_form': filter_form,
         }
     )
 

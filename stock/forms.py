@@ -42,3 +42,36 @@ class ProductForm(forms.ModelForm):
             'description' : forms.TextInput(attrs={'placeholder': 'Descrição'}),
             'image' : forms.FileInput(),
         }
+
+
+class ProductFilterForm(forms.Form):
+    initial_price = forms.FloatField(required=False, label="Preço inicial")
+    final_price = forms.FloatField(required=False, label="Preço final")
+    name = forms.CharField(required=False, label='Nome')
+    description = forms.CharField(required=False, label='Descrição')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['initial_price'].widget.attrs.update({
+            'class': 'form-control',
+            'type': 'number',
+            'step': '0.01',
+            'placeholder': 'Preço mínimo'
+        })
+        self.fields['final_price'].widget.attrs.update({
+            'class': 'form-control',
+            'type': 'number',
+            'step': '0.01',
+            'placeholder': 'Preço máximo'
+        })
+
+        self.fields['name'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Buscar por nome...'
+        })
+
+        self.fields['description'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Buscar por descrição...'
+        })

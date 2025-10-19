@@ -1,0 +1,24 @@
+<form method="get" class="filter-form">
+    <div class="filter-group">
+        <label for="id_name">Nome</label>
+        {{ filter_form.name }}
+    </div>
+
+    <div class="filter-group">
+        <label for="id_description">Descrição</label>
+        {{ filter_form.description }}
+    </div>
+
+    <div class="filter-group">
+        <label for="id_initial_price">Preço mínimo</label>
+        {{ filter_form.initial_price }}
+    </div>
+
+    <div class="filter-group">
+        <label for="id_final_price">Preço máximo</label>
+        {{ filter_form.final_price }}
+    </div>
+
+
+        <button type="submit" class="btn-primary">Filtrar</button>
+</form>
