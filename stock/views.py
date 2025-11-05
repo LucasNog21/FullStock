@@ -4,13 +4,13 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.views import View
 from django.views.generic import (
-    TemplateView, ListView, CreateView, FormView, RedirectView
+    TemplateView, ListView, CreateView, FormView, RedirectView, DeleteView, UpdateView,
 )
 from django.urls import reverse_lazy
 from utils.pagination import make_pagination, Paginator
 from utils.verifyFilterForm import verifyFilter
-from .models import AdaptedUser, Product, Order, Message
-from .forms import AdaptedUserCreationForm, LoginForm, ProductForm, ProductFilterForm
+from .models import AdaptedUser, Product, Order, Message, Category, Provider
+from .forms import AdaptedUserCreationForm, LoginForm, ProductForm, ProductFilterForm, CategoryForm, ProviderForm
 
 
 class ProductListView(ListView):
@@ -40,6 +40,47 @@ class ProductListView(ListView):
         })
         return context
 
+class CategoryListView(ListView):
+    model = Category
+    template_name = 'stock/categorys.html'
+    context_object_name = 'category_list'
+    paginate_by = 10
+    ordering = ['id']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        filter_form = ProductFilterForm(self.request.GET or None)
+        paginator = context['paginator']
+        page_obj = context['page_obj']
+
+        context.update({
+            'start_index': page_obj.start_index(),
+            'end_index': page_obj.end_index(),
+            'total_items': paginator.count,
+        })
+        return context
+
+class ProviderListView(ListView):
+    model = Provider
+    template_name = 'stock/providers.html'
+    context_object_name = 'provider_list'
+    paginate_by = 10
+    ordering = ['id']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        filter_form = ProductFilterForm(self.request.GET or None)
+        paginator = context['paginator']
+        page_obj = context['page_obj']
+
+        context.update({
+            'start_index': page_obj.start_index(),
+            'end_index': page_obj.end_index(),
+            'total_items': paginator.count,
+        })
+        return context
+
+
 class ProductCreateView(CreateView):
     model = Product
     form_class = ProductForm
@@ -49,6 +90,59 @@ class ProductCreateView(CreateView):
     def form_invalid(self, form):
         print(form.errors)
         return super().form_invalid(form)
+
+class ProductDeleteView(DeleteView):
+    model = Product
+    template_name = 'stock/confirm-delete.html'
+    success_url = reverse_lazy('products')
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    form_class = ProductForm
+    template_name = 'stock/product-form.html'
+    success_url = reverse_lazy('products')
+
+class CategoryCreateView(CreateView):
+    model = Category
+    form_class = CategoryForm
+    template_name = 'stock/category-form.html'
+    success_url = reverse_lazy('categorys')
+
+    def form_invalid(self, form):
+        print(form.errors)
+        return super().form_invalid(form)
+
+class CategoryDeleteView(DeleteView):
+    model = Category
+    template_name = 'stock/confirm-delete.html'
+    success_url = reverse_lazy('categorys')
+
+class CategoryUpdateView(UpdateView):
+    model = Category
+    form_class = CategoryForm
+    template_name = 'stock/category-form.html'
+    success_url = reverse_lazy('categorys')
+
+class ProviderCreateView(CreateView):
+    model = Provider
+    form_class = ProviderForm
+    template_name = 'stock/provider-form.html'
+    success_url = reverse_lazy('providers')
+
+    def form_invalid(self, form):
+        print(form.errors)
+        return super().form_invalid(form)
+
+class ProviderDeleteView(DeleteView):
+    model = Provider
+    template_name = 'stock/confirm-delete.html'
+    success_url = reverse_lazy('providers')
+
+class ProviderUpdateView(UpdateView):
+    model = Provider
+    form_class = ProviderForm
+    template_name = 'stock/provider-form.html'
+    success_url = reverse_lazy('providers')
 
 class DashboardView(TemplateView):
     template_name = 'stock/dashboard.html'
@@ -109,3 +203,4 @@ class LogoutView(RedirectView):
         logout(request)
         messages.info(request, "Você saiu do sistema.")
         return super().get(request, *args, **kwargs)
+

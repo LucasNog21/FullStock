@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block main %}
+<header class="page-header">
+    <h1>Fornecedores</h1>
+    <a class="btn-primary" href="{% url 'createProvider' %}">Adicionar Fornecedor</a>
+</header>
+
+{% if provider_list %}
+<div class="table-container">
+    <table class="data-table">
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>CNPJ</th>
+            <th>Contato</th>
+            <th>Endereço</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for provider in page_obj %}
+        <tr>
+            <td>{{ provider.name }}</td>
+            <td>{{ provider.cnpj }}</td>
+            <td>{{ provider.contact }}</td>
+            <td>{{ provider.address }}</td>
+            <td class="actions">
+                <a href="{% url 'updateProvider' provider.id %}" class="btn-edit">Editar</a>
+                <a href="{% url 'deleteProvider' provider.id %}" class="btn-delete">Excluir</a>
+            </td>
+        </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<p>Nenhum fornecedor cadastrado.</p>
+{% endif %}
+
+{% include 'pagination.html' %}
+{% endblock %}

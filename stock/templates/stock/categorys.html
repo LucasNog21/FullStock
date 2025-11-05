@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block main %}
+<header class="page-header">
+    <h1>Categorias</h1>
+    <a class="btn-primary" href="{% url 'createCategory' %}">Adicionar Categoria</a>
+</header>
+
+{% if category_list %}
+<div class="table-container">
+    <table class="data-table">
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Descrição</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for category in page_obj %}
+        <tr>
+            <td>{{ category.name }}</td>
+            <td>{{ category.description }}</td>
+            <td class="actions">
+                <a href="{% url 'updateCategory' category.id %}" class="btn-edit">Editar</a>
+                <a href="{% url 'deleteCategory' category.id %}" class="btn-delete">Excluir</a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<p>Nenhuma categoria cadastrada.</p>
+{% endif %}
+
+{% include 'pagination.html' %}
+{% endblock %}

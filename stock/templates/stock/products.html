@@ -21,6 +21,10 @@
                 <div class="product-stats">
                     <p class="quantity">Quantidade restante:{{ product.quantity }}</p>
                 </div>
+                <div class="product-actions">
+                    <a href="{% url 'updateProduct' product.id %}" class="btn-edit">Editar</a>
+                    <a href="{% url 'deleteProduct' product.id %}" class="btn-delete" onclick="return confirm('Tem certeza que deseja excluir este produto?');">Excluir</a>
+                </div>
             </div>
         </div>
         {% endfor %}
