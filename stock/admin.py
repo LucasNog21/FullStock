@@ -1,18 +1,31 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import AdaptedUser, Product, Message, Order
-# Register your models here.
+from .models import AdaptedUser, Category, Provider, Product, Message, Order, Movement
 
 @admin.register(AdaptedUser)
 class UserAdmin(admin.ModelAdmin):
     list_display = ("name", "username", "cpf", "address", "birthDate", "email", "password")
     search_fields = ("name", "username", "cpf", "address", "birthDate", "email", "password")
 
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ("name", "description")
+    search_fields = ("name", "description")
+
+@admin.register(Provider)
+class ProviderAdmin(admin.ModelAdmin):
+    list_display = ("name", "cnpj", "contact", "address")
+    search_fields = ("name", "cnpj", "contact", "address")
 
 @admin.register(Product)
-class productAdmin(admin.ModelAdmin):
-    list_display = ("name", "quantity", "allotment", "dueDate", "salePrice", "productionPrice", "description", "image")
-    search_fields = ("name", "quantity", "allotment", "dueDate", "salePrice", "productionPrice", "description", "image")
+class ProductAdmin(admin.ModelAdmin):
+    list_display = (
+        "name", "quantity", "allotment", "dueDate",
+        "salePrice", "productionPrice", "sku",
+        "active", "category", "provider", "local", "image_thumbnail"
+    )
+    search_fields = ("name", "description", "sku", "category__name", "provider__name", "local")
+    list_filter = ("active", "category", "provider")
 
     def image_thumbnail(self, obj):
         if obj.image:
@@ -24,11 +37,18 @@ class productAdmin(admin.ModelAdmin):
     image_thumbnail.short_description = 'Image'
 
 @admin.register(Message)
-class messageAdmin(admin.ModelAdmin):
+class MessageAdmin(admin.ModelAdmin):
     list_display = ("user", "description")
-    search_fields = ("user", "description")
+    search_fields = ("user__username", "description")
 
 @admin.register(Order)
-class orderAdmin(admin.ModelAdmin):
-    list_display = ("user", "product", "orderDate", "status")
-    search_fields = ("user", "product", "orderDate", "status")
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ("provider", "product", "orderDate", "quantity", "value", "status")
+    search_fields = ("provider__name", "product__name", "status")
+    list_filter = ("status", "provider")
+
+@admin.register(Movement)
+class MovementAdmin(admin.ModelAdmin):
+    list_display = ("product", "type", "quantity", "date", "reason", "user")
+    search_fields = ("product__name", "reason", "type", "user__username")
+    list_filter = ("type", "reason", "user")

@@ -16,20 +16,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from stock.views import logoutView, loginView, products, dashboard, analytics, messagesView, register, createProduct
+from stock.views import ProductListView, ProductCreateView, DashboardView, AnalyticsView, MessagesView, RegisterView, LoginView, LogoutView
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('products/', products, name='products'),
-    path('', loginView, name='login'),
-    path('logout/', logoutView, name='logout'),
-    path('dashboard/', dashboard, name='dashboard'),
-    path('analytics/', analytics, name='analytics'),
-    path('messages/', messagesView, name='messagesView'),
-    path('register/', register, name='register'),
-    path('createProduct/', createProduct, name='createProduct')
+    path('products/', ProductListView.as_view(), name='products'),
+    path('', LoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('dashboard/', DashboardView.as_view(), name='dashboard'),
+    path('analytics/', AnalyticsView.as_view(), name='analytics'),
+    path('messages/', MessagesView.as_view(), name='messagesView'),
+    path('register/', RegisterView.as_view(), name='register'),
+    path('createProduct/', ProductCreateView.as_view(), name='createProduct')
 
 
 

@@ -1,102 +1,111 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from . models import AdaptedUser, Product, Order, Message
-from .forms import AdaptedUserCreationForm, LoginForm, ProductForm, ProductFilterForm
+from django.shortcuts import redirect, render
 from django.contrib.auth.models import Group
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
+from django.views import View
+from django.views.generic import (
+    TemplateView, ListView, CreateView, FormView, RedirectView
+)
+from django.urls import reverse_lazy
 from utils.pagination import make_pagination, Paginator
 from utils.verifyFilterForm import verifyFilter
+from .models import AdaptedUser, Product, Order, Message
+from .forms import AdaptedUserCreationForm, LoginForm, ProductForm, ProductFilterForm
 
-def products(request):
-    product_list = Product.objects.all().order_by('id')
-    filter_form = ProductFilterForm(request.GET or None)
 
-    product_list = verifyFilter(filter_form, product_list)
+class ProductListView(ListView):
+    model = Product
+    template_name = 'stock/products.html'
+    context_object_name = 'product_list'
+    paginate_by = 10
+    ordering = ['id']
 
-    paginator = Paginator(product_list, 10)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        filter_form = ProductFilterForm(self.request.GET or None)
+        queryset = verifyFilter(filter_form, queryset)
+        return queryset
 
-    start_index = page_obj.start_index()
-    end_index = page_obj.end_index()
-    total_items = paginator.count
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        filter_form = ProductFilterForm(self.request.GET or None)
+        paginator = context['paginator']
+        page_obj = context['page_obj']
 
-    return render(
-        request,
-        'stock/products.html',
-        {
-            'product_list': product_list,
-            'page_obj': page_obj,
-            'paginator': paginator,
-            'start_index': start_index,
-            'end_index': end_index,
-            'total_items': total_items,
+        context.update({
             'filter_form': filter_form,
-        }
-    )
+            'start_index': page_obj.start_index(),
+            'end_index': page_obj.end_index(),
+            'total_items': paginator.count,
+        })
+        return context
 
-def createProduct(request): 
-    if request.method == 'POST':
-        form = ProductForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            form = ProductForm()
+class ProductCreateView(CreateView):
+    model = Product
+    form_class = ProductForm
+    template_name = 'stock/product-form.html'
+    success_url = reverse_lazy('products')
+
+    def form_invalid(self, form):
+        print(form.errors)
+        return super().form_invalid(form)
+
+class DashboardView(TemplateView):
+    template_name = 'stock/dashboard.html'
+
+
+class AnalyticsView(TemplateView):
+    template_name = 'stock/analytics.html'
+
+
+class MessagesView(TemplateView):
+    template_name = 'stock/messages.html'
+
+
+class RegisterView(FormView):
+    template_name = 'stock/register.html'
+    form_class = AdaptedUserCreationForm
+    success_url = reverse_lazy('login')
+
+    def form_valid(self, form):
+        user = form.save()
+        user_group, _ = Group.objects.get_or_create(name="USER")
+        user.groups.add(user_group)
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        print(form.errors)
+        return super().form_invalid(form)
+
+
+class LoginView(FormView):
+    template_name = 'stock/login.html'
+    form_class = LoginForm
+    success_url = reverse_lazy('products')
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
             return redirect('products')
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        username = form.cleaned_data.get('username')
+        password = form.cleaned_data.get('password')
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            login(self.request, user)
+            messages.success(self.request, f'Bem-vindo, {user.username}!')
+            next_url = self.request.GET.get('next', 'products')
+            return redirect(next_url)
         else:
-            print(form.errors)
-    else:
-        form = ProductForm()
-    return render(request, "stock/product-form.html", {'form': form})
+            messages.error(self.request, 'Usuário ou senha inválidos')
+            return self.form_invalid(form)
 
+class LogoutView(RedirectView):
+    pattern_name = 'login'
 
-def dashboard(request):
-    return render(request, 'stock/dashboard.html')
-
-def analytics(request):
-    return render(request, 'stock/analytics.html')
-
-def messagesView(request):
-    return render(request, 'stock/messages.html')
-
-def register(request):
-    if request.method == 'POST':
-        form = AdaptedUserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            userGroup, created = Group.objects.get_or_create(name="USER")
-            user.groups.add(userGroup)
-            return redirect('login')
-        else:
-            print(form.errors)
-    else:
-        form = AdaptedUserCreationForm()
-
-    return render(request, 'stock/register.html', {'form': form})
-
-def loginView(request):
-    if request.user.is_authenticated:
-        return redirect('products')
-    
-    if request.method == 'POST':
-        form = LoginForm(request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
-
-            if user is not None:
-                login(request, user)
-                messages.success(request, f'Bem-vindo, {user.username}!')
-                return redirect(request.GET.get('next', 'products'))
-        else:
-            messages.error(request, 'Usuário ou senha inválidos')
-    else:
-        form = LoginForm()
-
-    return render(request, 'stock/login.html', {'form': form})
-
-def logoutView(request):
-    logout(request)
-    messages.info(request, "Você saiu do sistema.")
-    return redirect('login')
-
+    def get(self, request, *args, **kwargs):
+        logout(request)
+        messages.info(request, "Você saiu do sistema.")
+        return super().get(request, *args, **kwargs)
