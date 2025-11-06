@@ -9,7 +9,7 @@ from django.views.generic import (
 from django.urls import reverse_lazy
 from utils.pagination import make_pagination, Paginator
 from utils.verifyFilterForm import verifyFilter
-from .models import AdaptedUser, Product, Order, Message, Category, Provider
+from .models import AdaptedUser, Product, Order, Category, Provider
 from .forms import AdaptedUserCreationForm, LoginForm, ProductForm, ProductFilterForm, CategoryForm, ProviderForm
 
 
@@ -152,8 +152,6 @@ class AnalyticsView(TemplateView):
     template_name = 'stock/analytics.html'
 
 
-class MessagesView(TemplateView):
-    template_name = 'stock/messages.html'
 
 
 class RegisterView(FormView):

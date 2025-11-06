@@ -12,6 +12,7 @@
         <tr>
             <th>Nome</th>
             <th>Descrição</th>
+            <th class="actions-header">Ações</th>
         </tr>
         </thead>
         <tbody>
@@ -19,7 +20,7 @@
         <tr>
             <td>{{ category.name }}</td>
             <td>{{ category.description }}</td>
-            <td class="actions">
+            <td class="data-table actions">
                 <a href="{% url 'updateCategory' category.id %}" class="btn-edit">Editar</a>
                 <a href="{% url 'deleteCategory' category.id %}" class="btn-delete">Excluir</a>
             </td>

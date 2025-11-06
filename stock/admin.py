@@ -36,11 +36,6 @@ class ProductAdmin(admin.ModelAdmin):
         return 'No image'
     image_thumbnail.short_description = 'Image'
 
-@admin.register(Message)
-class MessageAdmin(admin.ModelAdmin):
-    list_display = ("user", "description")
-    search_fields = ("user__username", "description")
-
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ("provider", "product", "orderDate", "quantity", "value", "status")

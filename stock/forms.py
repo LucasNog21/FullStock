@@ -65,15 +65,6 @@ class ProductForm(forms.ModelForm):
             'image': forms.FileInput(),
         }
 
-class MessageForm(forms.ModelForm):
-    class Meta:
-        model = Message
-        fields = ['user', 'description']
-        widgets = {
-            'user': forms.Select(),
-            'description': forms.Textarea(attrs={'placeholder': 'Mensagem'}),
-        }
-
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order

@@ -55,13 +55,6 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
-class Message(models.Model):
-    user = models.ForeignKey(AdaptedUser,on_delete=models.CASCADE)
-    description = models.TextField()
-
-    def __str__(self):
-        return str(self.user) + self.description
-
 class Order(models.Model):
     provider = models.ForeignKey(Provider, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
