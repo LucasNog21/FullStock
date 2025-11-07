@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<header class="page-header">
+    <h1>Vendas</h1>
+    <a class="btn-primary" href="{% url 'createSale' %}">Adicionar Venda</a>
+</header>
+
+{% if sale_list %}
+<div class="table-container">
+    <table class="data-table">
+        <thead>
+        <tr>
+            <th>Produto</th>
+            <th>Data da Venda</th>
+            <th>Quantidade</th>
+            <th>Usuário</th>
+            <th>Valor Total</th>
+            <th class="actions-header">Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for sale in page_obj %}
+        <tr>
+            <td>{{ sale.product.name }}</td>
+            <td>{{ sale.saleDate }}</td>
+            <td>{{ sale.quantity }}</td>
+            <td>{{ sale.user.username }}</td>
+            <td>
+                {% with total=sale.product.salePrice|floatformat:2 %}
+                R$ {{ sale.product.salePrice|floatformat:2 }} × {{ sale.quantity }} =
+                R$ {{ sale.total_value|floatformat:2 }}
+                {% endwith %}
+            </td>
+            <td class="data-table actions">
+                <a href="{% url 'updateSale' sale.id %}" class="btn-edit">Editar</a>
+                <a href="{% url 'deleteSale' sale.id %}" class="btn-delete">Excluir</a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<p>Nenhuma venda cadastrada.</p>
+{% endif %}
+
+{% include 'pagination.html' %}
+{% endblock %}

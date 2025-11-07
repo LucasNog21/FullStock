@@ -72,8 +72,12 @@ class Sale(models.Model):
     quantity = models.IntegerField()
     user = models.ForeignKey(AdaptedUser, on_delete=models.CASCADE)
 
+    @property
+    def total_value(self):
+        return self.product.salePrice * self.quantity
+
     def __str__(self):
-        return self.product + self.reason
+        return self.product + self.quantity
 
 
 

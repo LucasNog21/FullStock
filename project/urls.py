@@ -44,6 +44,10 @@ urlpatterns = [
     path('createOrder/', views.OrderCreateView.as_view(), name='createOrder'),
     path('updateOrder/<int:pk>', views.OrderUpdateView.as_view(), name='updateOrder'),
     path('deleteOrder/<int:pk>', views.OrderDeleteView.as_view(), name='deleteOrder'),
+    path('sales/', views.SaleListView.as_view(), name='sales'),
+    path('createSale/', views.SaleCreateView.as_view(), name='createSale'),
+    path('updateSale/<int:pk>', views.SaleUpdateView.as_view(), name='updateSale'),
+    path('deleteSale/<int:pk>', views.SaleDeleteView.as_view(), name='deleteSale'),
 
 ]
 
