@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import AdaptedUser, Category, Provider, Product, Message, Order, Movement
+from .models import AdaptedUser, Category, Provider, Product, Order, Sale
 
 class AdaptedUserCreationForm(UserCreationForm):
     class Meta:
@@ -68,26 +68,23 @@ class ProductForm(forms.ModelForm):
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ['provider', 'product', 'orderDate', 'quantity', 'value', 'status']
+        fields = ['provider', 'product', 'orderDate', 'quantity', 'status']
         widgets = {
             'provider': forms.Select(),
             'product': forms.Select(),
             'orderDate': forms.DateInput(attrs={'type': 'date'}),
             'quantity': forms.NumberInput(attrs={'placeholder': 'Quantidade'}),
-            'value': forms.NumberInput(attrs={'placeholder': 'Valor total'}),
             'status': forms.TextInput(attrs={'placeholder': 'Status do pedido'}),
         }
 
-class MovementForm(forms.ModelForm):
+class SaleForm(forms.ModelForm):
     class Meta:
-        model = Movement
-        fields = ['product', 'type', 'quantity', 'date', 'reason', 'user']
+        model = Sale
+        fields = ['product', 'saleDate', 'quantity', 'user']
         widgets = {
             'product': forms.Select(),
-            'type': forms.Select(),
+            'saleDate': forms.DateInput(attrs={'type': 'date'}),
             'quantity': forms.NumberInput(attrs={'placeholder': 'Quantidade'}),
-            'date': forms.DateInput(attrs={'type': 'date'}),
-            'reason': forms.Select(),
             'user': forms.Select(),
         }
 

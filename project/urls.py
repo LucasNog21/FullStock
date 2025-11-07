@@ -16,34 +16,34 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from stock.views import (ProductListView, ProductCreateView, DashboardView, AnalyticsView, MessagesView, RegisterView,
-                         LoginView, LogoutView, ProviderCreateView, CategoryCreateView, CategoryListView, ProviderListView,
-                         ProductUpdateView, CategoryUpdateView, ProviderUpdateView, ProductDeleteView, CategoryDeleteView, ProviderDeleteView, )
 from django.conf import settings
 from django.conf.urls.static import static
+from stock import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('products/', ProductListView.as_view(), name='products'),
-    path('categorys/', CategoryListView.as_view(), name='categorys'),
-    path('providers/', ProviderListView.as_view(), name='providers'),
-    path('', LoginView.as_view(), name='login'),
-    path('logout/', LogoutView.as_view(), name='logout'),
-    path('dashboard/', DashboardView.as_view(), name='dashboard'),
-    path('analytics/', AnalyticsView.as_view(), name='analytics'),
-    path('messages/', MessagesView.as_view(), name='messagesView'),
-    path('register/', RegisterView.as_view(), name='register'),
-    path('createProduct/', ProductCreateView.as_view(), name='createProduct'),
-    path('createProvider/', ProviderCreateView.as_view(), name='createProvider'),
-    path('createCategory/', CategoryCreateView.as_view(), name='createCategory'),
-    path('updateProduct/<int:pk>', ProductUpdateView.as_view(), name='updateProduct'),
-    path('updateCategory/<int:pk>', CategoryUpdateView.as_view(), name='updateCategory'),
-    path('updateProvider/<int:pk>', ProviderUpdateView.as_view(), name='updateProvider'),
-    path('deleteProduct/<int:pk>', ProductDeleteView.as_view(), name='deleteProduct'),
-    path('deleteCategory/<int:pk>', CategoryDeleteView.as_view(), name='deleteCategory'),
-    path('deleteProvider/<int:pk>', ProviderDeleteView.as_view(), name='deleteProvider'),
-
-
+    path('products/', views.ProductListView.as_view(), name='products'),
+    path('categorys/', views.CategoryListView.as_view(), name='categorys'),
+    path('providers/', views.ProviderListView.as_view(), name='providers'),
+    path('', views.LoginView.as_view(), name='login'),
+    path('logout/', views.LogoutView.as_view(), name='logout'),
+    path('dashboard/', views.DashboardView.as_view(), name='dashboard'),
+    path('analytics/', views.AnalyticsView.as_view(), name='analytics'),
+    path('register/', views.RegisterView.as_view(), name='register'),
+    path('createProduct/', views.ProductCreateView.as_view(), name='createProduct'),
+    path('createProvider/', views.ProviderCreateView.as_view(), name='createProvider'),
+    path('createCategory/', views.CategoryCreateView.as_view(), name='createCategory'),
+    path('updateProduct/<int:pk>', views.ProductUpdateView.as_view(), name='updateProduct'),
+    path('updateCategory/<int:pk>', views.CategoryUpdateView.as_view(), name='updateCategory'),
+    path('updateProvider/<int:pk>', views.ProviderUpdateView.as_view(), name='updateProvider'),
+    path('deleteProduct/<int:pk>', views.ProductDeleteView.as_view(), name='deleteProduct'),
+    path('deleteCategory/<int:pk>', views.CategoryDeleteView.as_view(), name='deleteCategory'),
+    path('deleteProvider/<int:pk>', views.ProviderDeleteView.as_view(), name='deleteProvider'),
+    path('createOrder/', views.OrderCreateView.as_view(), name='createOrder'),
+    path('orders/', views.OrderListView.as_view(), name='orders'),
+    path('createOrder/', views.OrderCreateView.as_view(), name='createOrder'),
+    path('updateOrder/<int:pk>', views.OrderUpdateView.as_view(), name='updateOrder'),
+    path('deleteOrder/<int:pk>', views.OrderDeleteView.as_view(), name='deleteOrder'),
 
 ]
 

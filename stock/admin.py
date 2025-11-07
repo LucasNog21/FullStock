@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import AdaptedUser, Category, Provider, Product, Message, Order, Movement
+from .models import AdaptedUser, Category, Provider, Product, Order, Sale
 
 @admin.register(AdaptedUser)
 class UserAdmin(admin.ModelAdmin):
@@ -42,8 +42,8 @@ class OrderAdmin(admin.ModelAdmin):
     search_fields = ("provider__name", "product__name", "status")
     list_filter = ("status", "provider")
 
-@admin.register(Movement)
-class MovementAdmin(admin.ModelAdmin):
-    list_display = ("product", "type", "quantity", "date", "reason", "user")
-    search_fields = ("product__name", "reason", "type", "user__username")
-    list_filter = ("type", "reason", "user")
+@admin.register(Sale)
+class SaleAdmin(admin.ModelAdmin):
+    list_display = ("product", "saleDate", "quantity", "user")
+    search_fields = ("product__name", "saleDate", "quantity", "user__username")
+    list_filter = ("product", "saleDate", "user")

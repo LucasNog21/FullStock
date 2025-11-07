@@ -66,21 +66,10 @@ class Order(models.Model):
     def __str__(self):
         return self.provider + self.product
 
-class Movement(models.Model):
-    class MovementType(models.TextChoices):
-        ENTRY = 'ENTRY', 'Entry'
-        EXIT = 'EXIT', 'Exit'
-
-    class MovementReason(models.TextChoices):
-        PURCHASE = 'PURCHASE', 'Purchase'
-        SALE = 'SALE', 'Sale'
-        ADJUSTMENT = 'ADJUSTMENT', 'Adjustment'
-        RETURN = 'RETURN', 'Return'
+class Sale(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    type = models.CharField(max_length=20, choices=MovementType.choices, default=MovementType.ENTRY)
+    saleDate = models.DateField()
     quantity = models.IntegerField()
-    date = models.DateField()
-    reason = models.CharField(max_length=20, choices=MovementReason.choices, default=MovementReason.ADJUSTMENT)
     user = models.ForeignKey(AdaptedUser, on_delete=models.CASCADE)
 
     def __str__(self):

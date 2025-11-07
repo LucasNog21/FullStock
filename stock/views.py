@@ -10,7 +10,7 @@ from django.urls import reverse_lazy
 from utils.pagination import make_pagination, Paginator
 from utils.verifyFilterForm import verifyFilter
 from .models import AdaptedUser, Product, Order, Category, Provider
-from .forms import AdaptedUserCreationForm, LoginForm, ProductForm, ProductFilterForm, CategoryForm, ProviderForm
+from .forms import AdaptedUserCreationForm, LoginForm, ProductForm, ProductFilterForm, CategoryForm, ProviderForm, OrderForm
 
 
 class ProductListView(ListView):
@@ -151,8 +151,56 @@ class DashboardView(TemplateView):
 class AnalyticsView(TemplateView):
     template_name = 'stock/analytics.html'
 
+class OrderCreateView(CreateView):
+    model = Order
+    form_class = OrderForm
+    template_name = 'stock/order-form.html'
+    success_url = reverse_lazy('products')
 
+    def form_valid(self, form):
+        order = form.save(commit=False)
+        product = order.product
+        order.value = product.productionPrice * order.quantity
+        order.save()
+        product.quantity += order.quantity
+        product.save()
 
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        print(form.errors)
+        return super().form_invalid(form)
+
+class OrderListView(ListView):
+    model = Order
+    template_name = 'stock/orders.html'
+    context_object_name = 'order_list'
+    paginate_by = 10
+    ordering = ['id']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        filter_form = ProductFilterForm(self.request.GET or None)
+        paginator = context['paginator']
+        page_obj = context['page_obj']
+
+        context.update({
+            'start_index': page_obj.start_index(),
+            'end_index': page_obj.end_index(),
+            'total_items': paginator.count,
+        })
+        return context
+
+class OrderDeleteView(DeleteView):
+    model = Order
+    template_name = 'stock/confirm-delete.html'
+    success_url = reverse_lazy('orders')
+
+class OrderUpdateView(UpdateView):
+    model = Order
+    form_class = OrderForm
+    template_name = 'stock/order-form.html'
+    success_url = reverse_lazy('orders')
 
 class RegisterView(FormView):
     template_name = 'stock/register.html'
