@@ -161,6 +161,12 @@ class ProviderUpdateView(UpdateView):
 class DashboardView(TemplateView):
     template_name = 'stock/dashboard.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_admin():
+            messages.error(request, "Você não tem permissão para acessar o dashboard.")
+            return redirect('products')
+        return super().dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -317,7 +323,7 @@ class SaleUpdateView(UpdateView):
     template_name = 'stock/sale-form.html'
     success_url = reverse_lazy('sales')
 
-@method_decorator(login_required, name='dispatch')
+
 class RegisterView(FormView):
     template_name = 'stock/register.html'
     form_class = AdaptedUserCreationForm
