@@ -186,10 +186,6 @@ class DashboardView(TemplateView):
         return context
 
 @method_decorator(login_required, name='dispatch')
-class AnalyticsView(TemplateView):
-    template_name = 'stock/analytics.html'
-
-@method_decorator(login_required, name='dispatch')
 class OrderCreateView(CreateView):
     model = Order
     form_class = OrderForm

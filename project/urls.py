@@ -28,7 +28,6 @@ urlpatterns = [
     path('', views.LoginView.as_view(), name='login'),
     path('logout/', views.LogoutView.as_view(), name='logout'),
     path('dashboard/', views.DashboardView.as_view(), name='dashboard'),
-    path('analytics/', views.AnalyticsView.as_view(), name='analytics'),
     path('register/', views.RegisterView.as_view(), name='register'),
     path('createProduct/', views.ProductCreateView.as_view(), name='createProduct'),
     path('createProvider/', views.ProviderCreateView.as_view(), name='createProvider'),
