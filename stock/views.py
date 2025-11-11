@@ -162,7 +162,7 @@ class DashboardView(TemplateView):
     template_name = 'stock/dashboard.html'
 
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_admin():
+        if not request.user.is_admin:
             messages.error(request, "Você não tem permissão para acessar o dashboard.")
             return redirect('products')
         return super().dispatch(request, *args, **kwargs)
