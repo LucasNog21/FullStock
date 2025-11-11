@@ -1,26 +1,26 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
+from django.contrib.auth.hashers import make_password
 # Create your models here.
 
 class AdaptedUser(AbstractUser):
     name = models.CharField(max_length=100, null=False)
-    username = models.CharField(max_length=50, unique=True, null=False)
-    cpf = models.CharField(max_length=11,unique=True, null=False)
+    cpf = models.CharField(max_length=11, unique=True, null=False)
     address = models.CharField(max_length=50, null=False)
     birthDate = models.DateField(null=True)
     email = models.EmailField(max_length=254, null=False)
-    password = models.CharField(max_length=50, null=False)
 
     def __str__(self):
         return self.username
 
+    @property
     def is_admin(self):
-        return self.groups.filter(name="ADMIN").exists()
+        return self.is_staff or self.is_superuser or self.groups.filter(name="ADMIN").exists()
     
+    @property
     def is_user(self):
-        return self.groups.filter(name="USER")
-
+        return self.groups.filter(name="USER").exists()
+    
 class Category(models.Model):
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=50)
@@ -64,7 +64,7 @@ class Order(models.Model):
     status = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.provider + self.product
+        return f"{self.provider} - {self.product}"
 
 class Sale(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -77,7 +77,7 @@ class Sale(models.Model):
         return self.product.salePrice * self.quantity
 
     def __str__(self):
-        return self.product + self.quantity
+        return f"{self.product} - {self.quantity} unidades"
 
 
 

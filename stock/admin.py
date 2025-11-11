@@ -1,11 +1,25 @@
 from django.contrib import admin
 from django.utils.html import format_html
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import AdaptedUser, Category, Provider, Product, Order, Sale
 
 @admin.register(AdaptedUser)
-class UserAdmin(admin.ModelAdmin):
-    list_display = ("name", "username", "cpf", "address", "birthDate", "email", "password")
-    search_fields = ("name", "username", "cpf", "address", "birthDate", "email", "password")
+class AdaptedUserAdmin(UserAdmin):
+    add_form = UserCreationForm
+    form = UserChangeForm
+    model = AdaptedUser
+    list_display = ("username", "name", "cpf", "email", "is_staff", "is_active")
+    search_fields = ("username", "name", "cpf", "email")
+    ordering = ("username",)
+
+    fieldsets = UserAdmin.fieldsets + (
+        (None, {"fields": ("name", "cpf", "address", "birthDate")}),
+    )
+
+    add_fieldsets = UserAdmin.add_fieldsets + (
+        (None, {"fields": ("name", "cpf", "address", "birthDate")}),
+    )
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):

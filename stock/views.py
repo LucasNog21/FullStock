@@ -261,7 +261,7 @@ class OrderUpdateView(UpdateView):
         else:
             difference = order.quantity - old_order.quantity
             order.product.quantity += difference
-            if order.product.quantiy < 0:
+            if order.product.quantity < 0:
                 order.product.quantity = 0
             order.product.save()
 

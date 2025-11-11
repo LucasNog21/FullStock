@@ -1,0 +1,382 @@
+[
+  {
+    "model": "stock.adapteduser",
+    "pk": 1,
+    "fields": {
+      "name": "João Silva",
+      "username": "joaosilva",
+      "cpf": "12345678901",
+      "address": "Rua das Flores, 123",
+      "birthDate": "1995-04-15",
+      "email": "joao@example.com",
+      "password": "senha123"
+    }
+  },
+  {
+    "model": "stock.adapteduser",
+    "pk": 2,
+    "fields": {
+      "name": "Maria Souza",
+      "username": "mariasouza",
+      "cpf": "23456789012",
+      "address": "Av. Brasil, 45",
+      "birthDate": "1992-06-20",
+      "email": "maria@example.com",
+      "password": "senha123"
+    }
+  },
+  {
+    "model": "stock.adapteduser",
+    "pk": 3,
+    "fields": {
+      "name": "Carlos Pereira",
+      "username": "carlosp",
+      "cpf": "34567890123",
+      "address": "Rua Central, 10",
+      "birthDate": "1990-01-01",
+      "email": "carlos@example.com",
+      "password": "senha123"
+    }
+  },
+  {
+    "model": "stock.adapteduser",
+    "pk": 4,
+    "fields": {
+      "name": "Ana Costa",
+      "username": "anacosta",
+      "cpf": "45678901234",
+      "address": "Rua Verde, 88",
+      "birthDate": "1998-09-05",
+      "email": "ana@example.com",
+      "password": "senha123"
+    }
+  },
+  {
+    "model": "stock.adapteduser",
+    "pk": 5,
+    "fields": {
+      "name": "Pedro Oliveira",
+      "username": "pedroo",
+      "cpf": "56789012345",
+      "address": "Rua Azul, 55",
+      "birthDate": "1993-03-10",
+      "email": "pedro@example.com",
+      "password": "senha123"
+    }
+  },
+  {
+    "model": "stock.adapteduser",
+    "pk": 6,
+    "fields": {
+      "name": "Lucas Martins",
+      "username": "lucasm",
+      "cpf": "67890123456",
+      "address": "Rua das Laranjeiras, 22",
+      "birthDate": "1994-12-12",
+      "email": "lucas@example.com",
+      "password": "senha123"
+    }
+  },
+  {
+    "model": "stock.adapteduser",
+    "pk": 7,
+    "fields": {
+      "name": "Fernanda Lima",
+      "username": "fernandal",
+      "cpf": "78901234567",
+      "address": "Rua Rosa, 77",
+      "birthDate": "1996-02-25",
+      "email": "fernanda@example.com",
+      "password": "senha123"
+    }
+  },
+  {
+    "model": "stock.adapteduser",
+    "pk": 8,
+    "fields": {
+      "name": "Rafael Santos",
+      "username": "rafaels",
+      "cpf": "89012345678",
+      "address": "Av. Paulista, 1000",
+      "birthDate": "1989-07-17",
+      "email": "rafael@example.com",
+      "password": "senha123"
+    }
+  },
+  {
+    "model": "stock.adapteduser",
+    "pk": 9,
+    "fields": {
+      "name": "Juliana Rocha",
+      "username": "julianar",
+      "cpf": "90123456789",
+      "address": "Rua dos Pinheiros, 40",
+      "birthDate": "1991-11-30",
+      "email": "juliana@example.com",
+      "password": "senha123"
+    }
+  },
+  {
+    "model": "stock.adapteduser",
+    "pk": 10,
+    "fields": {
+      "name": "Gustavo Melo",
+      "username": "gustavom",
+      "cpf": "01234567890",
+      "address": "Rua Nova, 60",
+      "birthDate": "1997-10-05",
+      "email": "gustavo@example.com",
+      "password": "senha123"
+    }
+  },
+  {
+    "model": "stock.category",
+    "pk": 1,
+    "fields": {"name": "Bebidas", "description": "Refrigerantes e sucos"}
+  },
+  {
+    "model": "stock.category",
+    "pk": 2,
+    "fields": {"name": "Higiene", "description": "Produtos de higiene pessoal"}
+  },
+  {
+    "model": "stock.category",
+    "pk": 3,
+    "fields": {"name": "Limpeza", "description": "Produtos de limpeza"}
+  },
+  {
+    "model": "stock.category",
+    "pk": 4,
+    "fields": {"name": "Alimentos", "description": "Grãos e cereais"}
+  },
+  {
+    "model": "stock.category",
+    "pk": 5,
+    "fields": {"name": "Padaria", "description": "Pães e bolos"}
+  },
+  {
+    "model": "stock.category",
+    "pk": 6,
+    "fields": {"name": "Carnes", "description": "Carnes bovinas e suínas"}
+  },
+  {
+    "model": "stock.category",
+    "pk": 7,
+    "fields": {"name": "Frutas", "description": "Frutas frescas"}
+  },
+  {
+    "model": "stock.category",
+    "pk": 8,
+    "fields": {"name": "Verduras", "description": "Verduras e legumes"}
+  },
+  {
+    "model": "stock.category",
+    "pk": 9,
+    "fields": {"name": "Laticínios", "description": "Leite e derivados"}
+  },
+  {
+    "model": "stock.category",
+    "pk": 10,
+    "fields": {"name": "Pet Shop", "description": "Produtos para animais"}
+  },
+  {
+    "model": "stock.provider",
+    "pk": 1,
+    "fields": {"name": "Fornecedor A", "cnpj": "11111111000111", "contact": "11999990001", "address": "Rua Alfa, 10"}
+  },
+  {
+    "model": "stock.provider",
+    "pk": 2,
+    "fields": {"name": "Fornecedor B", "cnpj": "22222222000122", "contact": "11999990002", "address": "Rua Beta, 20"}
+  },
+  {
+    "model": "stock.provider",
+    "pk": 3,
+    "fields": {"name": "Fornecedor C", "cnpj": "33333333000133", "contact": "11999990003", "address": "Rua Gama, 30"}
+  },
+  {
+    "model": "stock.provider",
+    "pk": 4,
+    "fields": {"name": "Fornecedor D", "cnpj": "44444444000144", "contact": "11999990004", "address": "Rua Delta, 40"}
+  },
+  {
+    "model": "stock.provider",
+    "pk": 5,
+    "fields": {"name": "Fornecedor E", "cnpj": "55555555000155", "contact": "11999990005", "address": "Rua Épsilon, 50"}
+  },
+  {
+    "model": "stock.provider",
+    "pk": 6,
+    "fields": {"name": "Fornecedor F", "cnpj": "66666666000166", "contact": "11999990006", "address": "Rua Zeta, 60"}
+  },
+  {
+    "model": "stock.provider",
+    "pk": 7,
+    "fields": {"name": "Fornecedor G", "cnpj": "77777777000177", "contact": "11999990007", "address": "Rua Eta, 70"}
+  },
+  {
+    "model": "stock.provider",
+    "pk": 8,
+    "fields": {"name": "Fornecedor H", "cnpj": "88888888000188", "contact": "11999990008", "address": "Rua Teta, 80"}
+  },
+  {
+    "model": "stock.provider",
+    "pk": 9,
+    "fields": {"name": "Fornecedor I", "cnpj": "99999999000199", "contact": "11999990009", "address": "Rua Iota, 90"}
+  },
+  {
+    "model": "stock.provider",
+    "pk": 10,
+    "fields": {"name": "Fornecedor J", "cnpj": "10101010000100", "contact": "11999990010", "address": "Rua Kapa, 100"}
+  },
+  {
+    "model": "stock.product",
+    "pk": 1,
+    "fields": {"name": "Arroz Tipo 1", "quantity": 100, "allotment": 101, "dueDate": "2025-12-01", "salePrice": 7.5, "productionPrice": 4.0, "description": "Pacote de arroz de 5kg", "sku": 1001, "active": true, "category": 4, "provider": 1, "local": "Depósito 1", "image": null}
+  },
+  {
+    "model": "stock.product",
+    "pk": 2,
+    "fields": {"name": "Feijão Carioca", "quantity": 80, "allotment": 102, "dueDate": "2025-11-20", "salePrice": 8.0, "productionPrice": 4.5, "description": "Feijão tipo carioca", "sku": 1002, "active": true, "category": 4, "provider": 2, "local": "Depósito 1", "image": null}
+  },
+  {
+    "model": "stock.product",
+    "pk": 3,
+    "fields": {"name": "Leite Integral", "quantity": 200, "allotment": 103, "dueDate": "2025-10-15", "salePrice": 5.0, "productionPrice": 3.0, "description": "Caixa 1L", "sku": 1003, "active": true, "category": 9, "provider": 3, "local": "Depósito 2", "image": null}
+  },
+  {
+    "model": "stock.product",
+    "pk": 4,
+    "fields": {"name": "Sabonete Neutro", "quantity": 300, "allotment": 104, "dueDate": "2026-05-10", "salePrice": 2.5, "productionPrice": 1.0, "description": "Sabonete 90g", "sku": 1004, "active": true, "category": 2, "provider": 4, "local": "Depósito 3", "image": null}
+  },
+  {
+    "model": "stock.product",
+    "pk": 5,
+    "fields": {"name": "Detergente", "quantity": 150, "allotment": 105, "dueDate": "2026-01-01", "salePrice": 3.0, "productionPrice": 1.5, "description": "Detergente neutro", "sku": 1005, "active": true, "category": 3, "provider": 5, "local": "Depósito 3", "image": null}
+  },
+  {
+    "model": "stock.product",
+    "pk": 6,
+    "fields": {"name": "Coca-Cola 2L", "quantity": 90, "allotment": 106, "dueDate": "2025-08-01", "salePrice": 9.0, "productionPrice": 6.0, "description": "Garrafa PET 2L", "sku": 1006, "active": true, "category": 1, "provider": 6, "local": "Depósito 2", "image": null}
+  },
+  {
+    "model": "stock.product",
+    "pk": 7,
+    "fields": {"name": "Maçã Gala", "quantity": 120, "allotment": 107, "dueDate": "2025-07-10", "salePrice": 4.5, "productionPrice": 2.5, "description": "Maçãs frescas", "sku": 1007, "active": true, "category": 7, "provider": 7, "local": "Depósito 4", "image": null}
+  },
+  {
+    "model": "stock.product",
+    "pk": 8,
+    "fields": {"name": "Alface Crespa", "quantity": 60, "allotment": 108, "dueDate": "2025-07-05", "salePrice": 3.0, "productionPrice": 1.5, "description": "Maço de alface", "sku": 1008, "active": true, "category": 8, "provider": 8, "local": "Depósito 4", "image": null}
+  },
+  {
+    "model": "stock.product",
+    "pk": 9,
+    "fields": {"name": "Ração Premium", "quantity": 50, "allotment": 109, "dueDate": "2026-02-20", "salePrice": 120.0, "productionPrice": 90.0, "description": "Ração para cães adultos", "sku": 1009, "active": true, "category": 10, "provider": 9, "local": "Depósito 5", "image": null}
+  },
+  {
+    "model": "stock.product",
+    "pk": 10,
+    "fields": {"name": "Pão Francês", "quantity": 500, "allotment": 110, "dueDate": "2025-11-12", "salePrice": 0.8, "productionPrice": 0.4, "description": "Unidade de pão francês", "sku": 1010, "active": true, "category": 5, "provider": 10, "local": "Padaria", "image": null}
+  },
+  {
+    "model": "stock.order",
+    "pk": 1,
+    "fields": {"provider": 1, "product": 1, "orderDate": "2025-11-01", "quantity": 100, "value": 400, "status": "Entregue"}
+  },
+  {
+    "model": "stock.order",
+    "pk": 2,
+    "fields": {"provider": 2, "product": 2, "orderDate": "2025-10-15", "quantity": 80, "value": 360, "status": "Entregue"}
+  },
+  {
+    "model": "stock.order",
+    "pk": 3,
+    "fields": {"provider": 3, "product": 3, "orderDate": "2025-09-20", "quantity": 200, "value": 600, "status": "Pendente"}
+  },
+  {
+    "model": "stock.order",
+    "pk": 4,
+    "fields": {"provider": 4, "product": 4, "orderDate": "2025-08-12", "quantity": 150, "value": 150, "status": "Cancelado"}
+  },
+  {
+    "model": "stock.order",
+    "pk": 5,
+    "fields": {"provider": 5, "product": 5, "orderDate": "2025-11-05", "quantity": 150, "value": 225, "status": "Entregue"}
+  },
+  {
+    "model": "stock.order",
+    "pk": 6,
+    "fields": {"provider": 6, "product": 6, "orderDate": "2025-09-01", "quantity": 90, "value": 540, "status": "Pendente"}
+  },
+  {
+    "model": "stock.order",
+    "pk": 7,
+    "fields": {"provider": 7, "product": 7, "orderDate": "2025-07-10", "quantity": 120, "value": 300, "status": "Entregue"}
+  },
+  {
+    "model": "stock.order",
+    "pk": 8,
+    "fields": {"provider": 8, "product": 8, "orderDate": "2025-06-25", "quantity": 60, "value": 90, "status": "Entregue"}
+  },
+  {
+    "model": "stock.order",
+    "pk": 9,
+    "fields": {"provider": 9, "product": 9, "orderDate": "2025-10-02", "quantity": 50, "value": 4500, "status": "Entregue"}
+  },
+  {
+    "model": "stock.order",
+    "pk": 10,
+    "fields": {"provider": 10, "product": 10, "orderDate": "2025-11-09", "quantity": 500, "value": 200, "status": "Pendente"}
+  },
+  {
+    "model": "stock.sale",
+    "pk": 1,
+    "fields": {"product": 1, "saleDate": "2025-11-10", "quantity": 10, "user": 1}
+  },
+  {
+    "model": "stock.sale",
+    "pk": 2,
+    "fields": {"product": 2, "saleDate": "2025-11-10", "quantity": 5, "user": 2}
+  },
+  {
+    "model": "stock.sale",
+    "pk": 3,
+    "fields": {"product": 3, "saleDate": "2025-11-09", "quantity": 8, "user": 3}
+  },
+  {
+    "model": "stock.sale",
+    "pk": 4,
+    "fields": {"product": 4, "saleDate": "2025-11-09", "quantity": 15, "user": 4}
+  },
+  {
+    "model": "stock.sale",
+    "pk": 5,
+    "fields": {"product": 5, "saleDate": "2025-11-08", "quantity": 12, "user": 5}
+  },
+  {
+    "model": "stock.sale",
+    "pk": 6,
+    "fields": {"product": 6, "saleDate": "2025-11-08", "quantity": 9, "user": 6}
+  },
+  {
+    "model": "stock.sale",
+    "pk": 7,
+    "fields": {"product": 7, "saleDate": "2025-11-07", "quantity": 7, "user": 7}
+  },
+  {
+    "model": "stock.sale",
+    "pk": 8,
+    "fields": {"product": 8, "saleDate": "2025-11-06", "quantity": 6, "user": 8}
+  },
+  {
+    "model": "stock.sale",
+    "pk": 9,
+    "fields": {"product": 9, "saleDate": "2025-11-05", "quantity": 3, "user": 9}
+  },
+  {
+    "model": "stock.sale",
+    "pk": 10,
+    "fields": {"product": 10, "saleDate": "2025-11-04", "quantity": 20, "user": 10}
+  }
+]
