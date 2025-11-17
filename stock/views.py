@@ -9,7 +9,6 @@ from django.views.generic import (
     TemplateView, ListView, CreateView, FormView, RedirectView, DeleteView, UpdateView,
 )
 from django.urls import reverse_lazy
-from utils.pagination import make_pagination, Paginator
 from utils.verifyFilterForm import verifyFilter
 from .models import AdaptedUser, Product, Order, Category, Provider, Sale
 from .forms import AdaptedUserCreationForm, LoginForm, ProductForm, ProductFilterForm, CategoryForm, ProviderForm, OrderForm, SaleForm
@@ -53,7 +52,6 @@ class CategoryListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        filter_form = ProductFilterForm(self.request.GET or None)
         paginator = context['paginator']
         page_obj = context['page_obj']
 
@@ -74,7 +72,6 @@ class ProviderListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        filter_form = ProductFilterForm(self.request.GET or None)
         paginator = context['paginator']
         page_obj = context['page_obj']
 
@@ -222,7 +219,6 @@ class OrderListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        filter_form = ProductFilterForm(self.request.GET or None)
         paginator = context['paginator']
         page_obj = context['page_obj']
 
@@ -299,7 +295,6 @@ class SaleListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        filter_form = ProductFilterForm(self.request.GET or None)
         paginator = context['paginator']
         page_obj = context['page_obj']
 
