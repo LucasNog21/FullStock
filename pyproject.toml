@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Sistema de gerenciamento de estoque"
 authors = [
     { name = "Lucas Nogueira", email = "lucasemanuelndq@gmail.com" },
-    { name = "Aman Santos", email = "amansantos@gmail.com" }
+    { name = "Aman Santos", email = "aman.santos@escolar.ifrn.edu.br" }
 ]
 requires-python = ">=3.10"
 
