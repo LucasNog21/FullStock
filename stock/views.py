@@ -6,7 +6,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.views import View
 from django.views.generic import (
-    TemplateView, ListView, CreateView, FormView, RedirectView, DeleteView, UpdateView,
+    TemplateView, ListView, CreateView, FormView, RedirectView, DeleteView, UpdateView, DetailView
 )
 from django.urls import reverse_lazy
 from utils.verifyFilterForm import verifyFilter
@@ -317,6 +317,12 @@ class SaleUpdateView(UpdateView):
     form_class = SaleForm
     template_name = 'stock/sale-form.html'
     success_url = reverse_lazy('sales')
+
+@method_decorator(login_required, name='dispatch')
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'stock/product-detail.html'
+    context_object_name = 'product'
 
 
 class RegisterView(FormView):
