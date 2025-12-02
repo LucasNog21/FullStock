@@ -13,31 +13,35 @@
     <div class="products-grid-large">
 
         {% for product in page_obj %}
-        <div class="product-card-large">
+        <a href="{% url 'detailProduct' product.id %}" class="product-card-link">
 
-            {% if product.image %}
-            <img src="{{ product.image.url }}" alt="{{ product.name }}">
-            {% endif %}
+            <div class="product-card-large">
 
-            <div class="product-info-large">
-                <h3>{{ product.name }}</h3>
-                <p class="description">{{ product.description }}</p>
-                <p class="price">R$ {{ product.salePrice }}</p>
+                {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                {% endif %}
 
-                <div class="product-stats">
-                    <p class="quantity">Quantidade restante: {{ product.quantity }}</p>
+                <div class="product-info-large">
+                    <h3>{{ product.name }}</h3>
+                    <p class="description">{{ product.description }}</p>
+                    <p class="price">R$ {{ product.salePrice }}</p>
+
+                    <div class="product-stats">
+                        <p class="quantity">Quantidade restante: {{ product.quantity }}</p>
+                    </div>
+
+                    <div class="product-actions">
+                        <a href="{% url 'updateProduct' product.id %}" class="btn-edit" onclick="event.stopPropagation()">Editar</a>
+                        <a href="{% url 'deleteProduct' product.id %}" class="btn-delete"
+                           onclick="event.stopPropagation(); return confirm('Tem certeza que deseja excluir este produto?');">
+                            Excluir
+                        </a>
+                    </div>
                 </div>
 
-                <div class="product-actions">
-                    <a href="{% url 'updateProduct' product.id %}" class="btn-edit">Editar</a>
-                    <a href="{% url 'deleteProduct' product.id %}" class="btn-delete"
-                       onclick="return confirm('Tem certeza que deseja excluir este produto?');">
-                        Excluir
-                    </a>
-                </div>
             </div>
 
-        </div>
+        </a>
         {% endfor %}
 
     </div>
