@@ -8,6 +8,18 @@ class AdaptedUserCreationForm(UserCreationForm):
         fields = [
             'name', 'username', 'cpf', 'address', 'birthDate', 'email', 'password1', 'password2'
         ]
+
+        labels = {
+            'name' : 'Nome',
+            'username' : 'Apelido',
+            'cpf' : 'CPF',
+            'address': 'Endereço',
+            'birthDate' : 'Data de nascimento',
+            'email' : 'Email',
+            'password1' : 'Senha',
+            'password2' : 'Confirmação de senha'
+        }
+
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': 'Nome completo'}),
             'username': forms.TextInput(attrs={'placeholder': 'Usuário'}),
@@ -25,10 +37,21 @@ class LoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Usuário'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Senha'}))
 
+    labels = {
+        'username' : 'Apelido',
+        'password' : 'Senha',
+    }
+
 class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = ['name', 'description']
+
+        labels = {
+            'name' : 'Nome',
+            'description' : 'Descrição',
+        }
+
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': 'Nome da categoria'}),
             'description': forms.TextInput(attrs={'placeholder': 'Descrição'}),
@@ -38,6 +61,14 @@ class ProviderForm(forms.ModelForm):
     class Meta:
         model = Provider
         fields = ['name', 'cnpj', 'contact', 'address']
+
+        labels = {
+            'name' : 'Nome',
+            'cnpj' : 'CNPJ',
+            'contact' : 'Contato',
+            'address' : 'Endereço'
+        }
+
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': 'Nome do fornecedor'}),
             'cnpj': forms.TextInput(attrs={'placeholder': 'CNPJ'}),
@@ -52,6 +83,23 @@ class ProductForm(forms.ModelForm):
             'name', 'quantity', 'allotment', 'dueDate', 'salePrice', 'productionPrice',
             'description', 'sku', 'active', 'category', 'provider', 'local', 'image'
         ]
+
+        labels = {
+            'name': 'Nome',
+            'quantity': 'Quantidade',
+            'allotment': 'Lote',
+            'dueDate': 'Data de vencimento',
+            'salePrice': 'Preço de venda',
+            'productionPrice': 'Preço de produção',
+            'description': 'Descrição',
+            'sku': 'SKU',
+            'active': 'Ativo',
+            'category': 'Categoria',
+            'provider': 'Fornecedor',
+            'local': 'Localização',
+            'image': 'Imagem',
+        }
+
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': 'Nome do produto'}),
             'quantity': forms.NumberInput(attrs={'placeholder': 'Quantidade'}),
@@ -69,6 +117,14 @@ class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = ['provider', 'product', 'orderDate', 'quantity', 'status']
+
+        labels = {
+            'provider' : 'Fornecedor',
+            'product' : 'Produto',
+            'orderDate' : 'Data do pedido',
+            'quantity' : 'Quantidade',
+            'status' : 'Status'
+        }
         widgets = {
             'provider': forms.Select(),
             'product': forms.Select(),
@@ -81,6 +137,14 @@ class SaleForm(forms.ModelForm):
     class Meta:
         model = Sale
         fields = ['product', 'saleDate', 'quantity', 'user']
+
+        labels = {
+            'product' : 'Produto',
+            'saleDate' : 'Data da venda',
+            'quantity' : 'Quantidade',
+            'user' : 'Usuário'
+        }
+
         widgets = {
             'product': forms.Select(),
             'saleDate': forms.DateInput(attrs={'type': 'date'}),
