@@ -94,17 +94,6 @@
             </ul>
         </nav>
 
-        <div class="user-menu-container">
-            <div class="user-menu-trigger">
-                {{ user.name|default:user.username }}
-            </div>
-
-            <div class="user-menu-dropdown">
-                <a href="{% url 'userProfile' %}">Perfil</a>
-                <a href="{% url 'logout' %}">Sair</a>
-            </div>
-        </div>
-
         <main class="main-content">
             {% block main %}
             {% endblock %}
