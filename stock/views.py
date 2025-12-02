@@ -169,25 +169,24 @@ class DashboardView(TemplateView):
 
         total_products = Product.objects.count()
         total_sales = Sale.objects.count()
-
-        biling_expr = ExpressionWrapper(
-            F('salePrice') - F('productionPrice'),
+        
+        billing_expr = ExpressionWrapper(
+            F('quantity') * (F('product__salePrice') - F('product__productionPrice')),
             output_field=FloatField()
         )
-        total_biling = Product.objects.aggregate(
-            total=Sum(biling_expr)
-        )['total'] or 0
+
+        total_billing = Sale.objects.aggregate(total=Sum(billing_expr))['total'] or 0
 
         low_stock = Product.objects.filter(quantity__lte=10).count()
 
         context.update({
             'total_products': total_products,
             'total_sales': total_sales,
-            'total_biling': total_biling,
+            'total_biling': total_billing,
             'low_stock': low_stock,
         })
         return context
-
+    
 @method_decorator(login_required, name='dispatch')
 class OrderCreateView(CreateView):
     model = Order
