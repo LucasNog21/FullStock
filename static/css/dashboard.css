@@ -15,6 +15,7 @@
     border: none;
     border-radius: 8px;
     font-size: 22px;
+    cursor: pointer;
 }
 
 .menu-overlay {
@@ -84,11 +85,13 @@
 
 .nav-menu a.logout:hover {
     background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
 }
 
 .main-content {
     margin-left: 280px;
     padding: 32px;
+    transition: margin-left 0.3s ease;
 }
 
 @media (max-width: 768px) {
