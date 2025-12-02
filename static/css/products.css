@@ -1,11 +1,22 @@
 .product-card-link,
+.product-info-link,
 .product-card-link:visited,
 .product-card-link:hover,
 .product-card-link:active,
-.product-card-link:focus {
+.product-card-link:focus,
+.product-info-link:visited,
+.product-info-link:hover,
+.product-info-link:active,
+.product-info-link:focus {
     text-decoration: none;
     color: inherit;
     display: block;
+}
+
+.product-info-link {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .products-container {
@@ -36,7 +47,7 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    width: 100%; 
+    width: 100%;
 }
 
 .product-card-large:hover {
@@ -84,8 +95,8 @@
     justify-content: space-between;
 }
 
-.product-actions {
-    margin-top: 16px;
+.product-actions-footer {
+    padding: 0 24px 24px 24px;
     display: flex;
     gap: 12px;
 }
