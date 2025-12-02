@@ -48,9 +48,13 @@ urlpatterns = [
     path('updateSale/<int:pk>', views.SaleUpdateView.as_view(), name='updateSale'),
     path('deleteSale/<int:pk>', views.SaleDeleteView.as_view(), name='deleteSale'),
     path('products/<int:pk>/', views.ProductDetailView.as_view(), name='detailProduct'),
-
-
+    path("profile/", views.UserProfileView.as_view(), name="userProfile"),
+    path("profile/update/<int:pk>", views.UserUpdateView.as_view(), name="userUpdate"),
+    path("profile/delete/<int:pk>", views.UserDeleteView.as_view(), name="userDelete"),
 ]
+
+
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

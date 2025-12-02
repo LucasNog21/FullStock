@@ -324,6 +324,37 @@ class ProductDetailView(DetailView):
     template_name = 'stock/product-detail.html'
     context_object_name = 'product'
 
+@method_decorator(login_required, name='dispatch')
+class UserProfileView(TemplateView):
+    template_name = "stock/user-profile.html"
+
+
+
+class UserUpdateView(UpdateView):
+    model = AdaptedUser
+    form_class = AdaptedUserCreationForm
+    template_name = "stock/register.html"
+    success_url = reverse_lazy("userProfile")
+
+    def form_valid(self, form):
+        user = form.save()
+        user_group, _ = Group.objects.get_or_create(name="USER")
+        user.groups.add(user_group)
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        print(form.errors)
+        return super().form_invalid(form)
+
+
+class UserDeleteView(DeleteView):
+    model = AdaptedUser
+    template_name = "user/user-delete-confirm.html"
+    success_url = reverse_lazy("login")
+
+    def get_object(self):
+        return self.request.user
+
 
 class RegisterView(FormView):
     template_name = 'stock/register.html'

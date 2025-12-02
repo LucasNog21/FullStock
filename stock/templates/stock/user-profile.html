@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block main %}
+
+<div class="profile-wrapper">
+    <div class="profile-card">
+
+        <div class="profile-header">
+            <div class="avatar">
+                {{ user.name|slice:":1" }}
+            </div>
+            <h2>{{ user.name }}</h2>
+            <p class="username">@{{ user.username }}</p>
+        </div>
+
+        <div class="profile-info">
+            <div class="info-card">
+                <h3>Informações Pessoais</h3>
+                <ul>
+                    <li><strong>Nome:</strong> {{ user.name }}</li>
+                    <li><strong>CPF:</strong> {{ user.cpf }}</li>
+                    <li><strong>Data de Nascimento:</strong> {{ user.birthDate }}</li>
+                    <li><strong>Endereço:</strong> {{ user.address }}</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3>Contato</h3>
+                <ul>
+                    <li><strong>Email:</strong> {{ user.email }}</li>
+                </ul>
+            </div>
+
+            <div class="info-card">
+                <h3>Permissões</h3>
+                <ul>
+                    <li><strong>Admin:</strong> {{ user.is_admin }}</li>
+                    <li><strong>Usuário:</strong> {{ user.is_user }}</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="profile-actions">
+            <a href="{% url 'userUpdate' user.id %}" class="btn-edit">Editar Perfil</a>
+
+            <form action="{% url 'userDelete' user.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn-delete">Excluir Conta</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

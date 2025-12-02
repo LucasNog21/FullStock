@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+<div class="profile-card">
+    <h2 class="profile-title">Excluir Conta</h2>
+
+    <p>Tem certeza que deseja excluir sua conta? Esta ação é irreversível.</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button class="btn-delete" type="submit">Excluir</button>
+        <a href="{% url 'userProfile' %}" class="btn-edit">Cancelar</a>
+    </form>
+</div>
+
+{% endblock %}
