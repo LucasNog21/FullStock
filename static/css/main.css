@@ -359,7 +359,7 @@ button:disabled {
     padding: 2.5rem 3rem;
     border-radius: 12px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-    max-width: 460px;s
+    max-width: 460px;
     margin: 4rem auto;
     text-align: center;
     animation: fadeIn 0.35s ease-out;

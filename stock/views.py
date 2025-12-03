@@ -1,3 +1,4 @@
+from django.db.models.functions import TruncMonth
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.shortcuts import redirect, render
@@ -167,24 +168,38 @@ class DashboardView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        total_products = Product.objects.count()
-        total_sales = Sale.objects.count()
-        
+        context["total_products"] = Product.objects.count()
+        context["total_sales"] = Sale.objects.count()
+
         billing_expr = ExpressionWrapper(
             F('quantity') * (F('product__salePrice') - F('product__productionPrice')),
             output_field=FloatField()
         )
+        context["total_biling"] = Sale.objects.aggregate(total=Sum(billing_expr))['total'] or 0
 
-        total_billing = Sale.objects.aggregate(total=Sum(billing_expr))['total'] or 0
+        context["low_stock"] = Product.objects.filter(quantity__lte=10).count()
 
-        low_stock = Product.objects.filter(quantity__lte=10).count()
+        sales_by_month = (
+            Sale.objects
+            .annotate(month=TruncMonth('saleDate'))
+            .values('month')
+            .annotate(total=Sum('quantity'))
+            .order_by('month')
+        )
 
-        context.update({
-            'total_products': total_products,
-            'total_sales': total_sales,
-            'total_biling': total_billing,
-            'low_stock': low_stock,
-        })
+        context["sales_labels"] = [s['month'].strftime("%b/%Y") for s in sales_by_month]
+        context["sales_values"] = [s['total'] for s in sales_by_month]
+
+        top_products = (
+            Sale.objects
+            .values('product__name')
+            .annotate(total=Sum('quantity'))
+            .order_by('-total')[:5]
+        )
+
+        context["top_products_labels"] = [p["product__name"] for p in top_products]
+        context["top_products_values"] = [p["total"] for p in top_products]
+
         return context
     
 @method_decorator(login_required, name='dispatch')

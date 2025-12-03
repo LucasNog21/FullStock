@@ -1,44 +1,66 @@
-{%extends 'base.html'%}
+{% extends 'base.html' %}
 {% block main %}
-            <header class="page-header">
-                <h1>Dashboard</h1>
-                <div class="user-info">
-                    <span>Bem-vindo, {{ user.get_full_name|default:user.username }}!</span>
-                </div>
-            </header>
-            
-            <div class="dashboard-grid">
-                <div class="card metric-card">
-                    <div class="metric-icon products"></div>
-                    <div class="metric-info">
-                        <h3>Total de Produtos</h3>
-                        <p class="metric-value">{{ total_products }}</p>
-                    </div>
-                </div>
-                
-                <div class="card metric-card">
-                    <div class="metric-icon sales"></div>
-                    <div class="metric-info">
-                        <h3>Vendas</h3>
-                        <p class="metric-value"> {{ total_sales }}</p>
-                    </div>
-                </div>
-                
-                <div class="card metric-card">
-                    <div class="metric-icon revenue"></div>
-                    <div class="metric-info">
-                        <h3>Faturamento</h3>
-                        <p class="metric-value">R$ {{ total_biling }}</p>
-                    </div>
-                </div>
-                
-                <div class="card metric-card">
-                    <div class="metric-icon stock"></div>
-                    <div class="metric-info">
-                        <h3>Estoque Baixo</h3>
-                        <p class="metric-value">{{ low_stock }}</p>
-                    </div>
-                </div>
-            </div>
 
-{%endblock%}
+<h1>Dashboard</h1>
+
+<div class="dashboard-grid">
+    <div class="card metric-card">
+        <h3>Total de Produtos</h3>
+        <p>{{ total_products }}</p>
+    </div>
+
+    <div class="card metric-card">
+        <h3>Vendas</h3>
+        <p>{{ total_sales }}</p>
+    </div>
+
+    <div class="card metric-card">
+        <h3>Faturamento</h3>
+        <p>R$ {{ total_biling }}</p>
+    </div>
+
+    <div class="card metric-card">
+        <h3>Estoque Baixo</h3>
+        <p>{{ low_stock }}</p>
+    </div>
+</div>
+
+<hr>
+
+<h2>Vendas por Mês</h2>
+<canvas id="salesChart"></canvas>
+
+<h2>Top 5 Produtos Mais Vendidos</h2>
+<canvas id="topProductsChart"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const salesCtx = document.getElementById('salesChart');
+    new Chart(salesCtx, {
+        type: 'line',
+        data: {
+            labels: {{ sales_labels|safe }},
+            datasets: [{
+                label: 'Vendas (Quantidade)',
+                data: {{ sales_values|safe }},
+                borderWidth: 2
+            }]
+        }
+    });
+
+    const topProductsCtx = document.getElementById('topProductsChart');
+    new Chart(topProductsCtx, {
+        type: 'bar',
+        data: {
+            labels: {{ top_products_labels|safe }},
+            datasets: [{
+                label: 'Unidades Vendidas',
+                data: {{ top_products_values|safe }},
+                borderWidth: 2
+            }]
+        }
+    });
+</script>
+
+{% endblock %}
