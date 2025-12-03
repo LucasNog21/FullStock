@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 {% block main %}
-<h2>Tem certeza que deseja excluir "{{ object }}"?</h2>
-<form method="post">
-    {% csrf_token %}
-    <button type="submit" class="btn-delete">Excluir</button>
-    <a href="{% url 'products' %}" class="btn-cancel">Cancelar</a>
-</form>
+<div class="confirm-card">
+    <h2>Tem certeza que deseja excluir "{{ object }}"?</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn-delete">Excluir</button>
+        <a href="{% url 'products' %}" class="btn-cancel">Cancelar</a>
+    </form>
+</div>
 {% endblock %}
