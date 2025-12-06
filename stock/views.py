@@ -175,8 +175,8 @@ class DashboardView(TemplateView):
             F('quantity') * (F('product__salePrice') - F('product__productionPrice')),
             output_field=FloatField()
         )
-        context["total_biling"] = Sale.objects.aggregate(total=Sum(billing_expr))['total'] or 0
 
+        context["total_biling"] = Sale.objects.aggregate(total=Sum(billing_expr))['total'] or 0
         context["low_stock"] = Product.objects.filter(quantity__lte=10).count()
 
         sales_by_month = (
@@ -200,8 +200,39 @@ class DashboardView(TemplateView):
         context["top_products_labels"] = [p["product__name"] for p in top_products]
         context["top_products_values"] = [p["total"] for p in top_products]
 
+        top_categories = (
+            Sale.objects
+            .values('product__category__name')
+            .annotate(total=Sum('quantity'))
+            .order_by('-total')[:5]
+        )
+
+        context["category_labels"] = [c["product__category__name"] or "Sem categoria" for c in top_categories]
+        context["category_values"] = [c["total"] for c in top_categories]
+
+        monthly_finances = (
+            Sale.objects
+            .annotate(month=TruncMonth('saleDate'))
+            .values('month')
+            .annotate(
+                total_cost=Sum(F('quantity') * F('product__productionPrice')),
+                total_profit=Sum(F('quantity') * (F('product__salePrice') - F('product__productionPrice')))
+            )
+            .order_by('month')
+        )
+
+        context["finance_labels"] = [m["month"].strftime("%b/%Y") for m in monthly_finances]
+        context["finance_costs"] = [m["total_cost"] or 0 for m in monthly_finances]
+        context["finance_profits"] = [m["total_profit"] or 0 for m in monthly_finances]
+
+        low_stock_list = Product.objects.order_by('quantity')[:5]
+
+        context["low_stock_labels"] = [p.name for p in low_stock_list]
+        context["low_stock_values"] = [p.quantity for p in low_stock_list]
+
         return context
-    
+
+
 @method_decorator(login_required, name='dispatch')
 class OrderCreateView(CreateView):
     model = Order

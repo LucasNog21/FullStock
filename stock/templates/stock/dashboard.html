@@ -1,61 +1,131 @@
 {% extends 'base.html' %}
-{% load static %}
-
 {% block main %}
 
-<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+<h1>Dashboard</h1>
 
-<div class="dashboard-container">
-
-    <h2 class="section-title">Vendas</h2>
-
-    <div class="charts-grid">
-        <div class="chart-section">
-            <h3>Vendas por Mês</h3>
-            <canvas id="salesPerMonth"></canvas>
-        </div>
-
-        <div class="chart-section">
-            <h3>Produtos Mais Vendidos</h3>
-            <canvas id="topProducts"></canvas>
-        </div>
-
-        <div class="chart-section">
-            <h3>Categorias Mais Movimentadas</h3>
-            <canvas id="topCategories"></canvas>
-        </div>
-
-        <div class="chart-section">
-            <h3>Lucro × Custo</h3>
-            <canvas id="profitVsCost"></canvas>
-        </div>
-
-        <div class="chart-section">
-            <h3>Top 5 Menor Estoque</h3>
-            <canvas id="lowestStock"></canvas>
+<div class="dashboard-grid">
+    <div class="card metric-card">
+        <div class="metric-icon products"></div>
+        <div class="metric-info">
+            <h3>Total de Produtos</h3>
+            <p>{{ total_products }}</p>
         </div>
     </div>
 
+    <div class="card metric-card">
+        <div class="metric-icon sales"></div>
+        <div class="metric-info">
+            <h3>Vendas</h3>
+            <p>{{ total_sales }}</p>
+        </div>
+    </div>
+
+    <div class="card metric-card">
+        <div class="metric-icon revenue"></div>
+        <div class="metric-info">
+            <h3>Faturamento</h3>
+            <p>R$ {{ total_biling }}</p>
+        </div>
+    </div>
+
+    <div class="card metric-card">
+        <div class="metric-icon stock"></div>
+        <div class="metric-info">
+            <h3>Estoque Baixo</h3>
+            <p>{{ low_stock }}</p>
+        </div>
+    </div>
 </div>
 
-<script>
-    const MONTHS = {{ meses|safe }};
-    const SALES_MONTH = {{ vendas_por_mes|safe }};
+<hr>
 
-    const TOP_PRODUCTS_LABELS = {{ produtos_mais_vendidos_labels|safe }};
-    const TOP_PRODUCTS_DATA = {{ produtos_mais_vendidos_data|safe }};
+<h2>Vendas por Mês</h2>
+<canvas id="salesChart"></canvas>
 
-    const CATEGORY_LABELS = {{ categorias_labels|safe }};
-    const CATEGORY_DATA = {{ categorias_data|safe }};
+<h2>Top 5 Produtos Mais Vendidos</h2>
+<canvas id="topProductsChart"></canvas>
 
-    const MONTHLY_COST = {{ custo_mensal|safe }};
-    const MONTHLY_PROFIT = {{ lucro_mensal|safe }};
+<h2>Categorias Mais Movimentadas</h2>
+<canvas id="categoryChart"></canvas>
 
-    const LOW_STOCK_LABELS = {{ menor_estoque_labels|safe }};
-    const LOW_STOCK_DATA = {{ menor_estoque_data|safe }};
-</script>
+<h2>Lucratividade vs Custo por Mês</h2>
+<canvas id="financeChart"></canvas>
+
+<h2>Produtos com Menor Estoque</h2>
+<canvas id="lowStockChart"></canvas>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="{% static 'js/dashboard.js' %}"></script>
+
+<script>
+
+    new Chart(document.getElementById('salesChart'), {
+        type: 'line',
+        data: {
+            labels: {{ sales_labels|safe }},
+            datasets: [{
+                label: 'Vendas (Quantidade)',
+                data: {{ sales_values|safe }},
+                borderWidth: 2
+            }]
+        }
+    });
+
+
+    new Chart(document.getElementById('topProductsChart'), {
+        type: 'bar',
+        data: {
+            labels: {{ top_products_labels|safe }},
+            datasets: [{
+                label: 'Unidades Vendidas',
+                data: {{ top_products_values|safe }},
+                borderWidth: 2
+            }]
+        }
+    });
+
+    new Chart(document.getElementById('categoryChart'), {
+        type: 'bar',
+        data: {
+            labels: {{ category_labels|safe }},
+            datasets: [{
+                label: 'Quantidade Vendida',
+                data: {{ category_values|safe }},
+                borderWidth: 2
+            }]
+        }
+    });
+
+
+    new Chart(document.getElementById('financeChart'), {
+        type: 'line',
+        data: {
+            labels: {{ finance_labels|safe }},
+            datasets: [
+                {
+                    label: 'Custo Total',
+                    data: {{ finance_costs|safe }},
+                    borderWidth: 2
+                },
+                {
+                    label: 'Lucro Total',
+                    data: {{ finance_profits|safe }},
+                    borderWidth: 2
+                }
+            ]
+        }
+    });
+
+    new Chart(document.getElementById('lowStockChart'), {
+        type: 'bar',
+        data: {
+            labels: {{ low_stock_labels|safe }},
+            datasets: [{
+                label: 'Quantidade em Estoque',
+                data: {{ low_stock_values|safe }},
+                borderWidth: 2
+            }]
+        }
+    });
+</script>
 
 {% endblock %}
