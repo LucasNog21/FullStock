@@ -1,66 +1,61 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block main %}
 
-<h1>Dashboard</h1>
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 
-<div class="dashboard-grid">
-    <div class="card metric-card">
-        <h3>Total de Produtos</h3>
-        <p>{{ total_products }}</p>
+<div class="dashboard-container">
+
+    <h2 class="section-title">Vendas</h2>
+
+    <div class="charts-grid">
+        <div class="chart-section">
+            <h3>Vendas por Mês</h3>
+            <canvas id="salesPerMonth"></canvas>
+        </div>
+
+        <div class="chart-section">
+            <h3>Produtos Mais Vendidos</h3>
+            <canvas id="topProducts"></canvas>
+        </div>
+
+        <div class="chart-section">
+            <h3>Categorias Mais Movimentadas</h3>
+            <canvas id="topCategories"></canvas>
+        </div>
+
+        <div class="chart-section">
+            <h3>Lucro × Custo</h3>
+            <canvas id="profitVsCost"></canvas>
+        </div>
+
+        <div class="chart-section">
+            <h3>Top 5 Menor Estoque</h3>
+            <canvas id="lowestStock"></canvas>
+        </div>
     </div>
 
-    <div class="card metric-card">
-        <h3>Vendas</h3>
-        <p>{{ total_sales }}</p>
-    </div>
-
-    <div class="card metric-card">
-        <h3>Faturamento</h3>
-        <p>R$ {{ total_biling }}</p>
-    </div>
-
-    <div class="card metric-card">
-        <h3>Estoque Baixo</h3>
-        <p>{{ low_stock }}</p>
-    </div>
 </div>
 
-<hr>
+<script>
+    const MONTHS = {{ meses|safe }};
+    const SALES_MONTH = {{ vendas_por_mes|safe }};
 
-<h2>Vendas por Mês</h2>
-<canvas id="salesChart"></canvas>
+    const TOP_PRODUCTS_LABELS = {{ produtos_mais_vendidos_labels|safe }};
+    const TOP_PRODUCTS_DATA = {{ produtos_mais_vendidos_data|safe }};
 
-<h2>Top 5 Produtos Mais Vendidos</h2>
-<canvas id="topProductsChart"></canvas>
+    const CATEGORY_LABELS = {{ categorias_labels|safe }};
+    const CATEGORY_DATA = {{ categorias_data|safe }};
+
+    const MONTHLY_COST = {{ custo_mensal|safe }};
+    const MONTHLY_PROFIT = {{ lucro_mensal|safe }};
+
+    const LOW_STOCK_LABELS = {{ menor_estoque_labels|safe }};
+    const LOW_STOCK_DATA = {{ menor_estoque_data|safe }};
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-    const salesCtx = document.getElementById('salesChart');
-    new Chart(salesCtx, {
-        type: 'line',
-        data: {
-            labels: {{ sales_labels|safe }},
-            datasets: [{
-                label: 'Vendas (Quantidade)',
-                data: {{ sales_values|safe }},
-                borderWidth: 2
-            }]
-        }
-    });
-
-    const topProductsCtx = document.getElementById('topProductsChart');
-    new Chart(topProductsCtx, {
-        type: 'bar',
-        data: {
-            labels: {{ top_products_labels|safe }},
-            datasets: [{
-                label: 'Unidades Vendidas',
-                data: {{ top_products_values|safe }},
-                borderWidth: 2
-            }]
-        }
-    });
-</script>
+<script src="{% static 'js/dashboard.js' %}"></script>
 
 {% endblock %}
