@@ -1,0 +1,14 @@
+<form method="get" class="filter-form">
+
+    <div class="filter-group">
+        <label for="id_name">Nome</label>
+        {{ filter_form.name }}
+    </div>
+
+    <div class="filter-group">
+        <label for="id_description">Descrição</label>
+        {{ filter_form.description }}
+    </div>
+
+    <button type="submit" class="btn-primary">Filtrar</button>
+</form>

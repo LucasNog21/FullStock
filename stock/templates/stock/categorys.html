@@ -5,6 +5,8 @@
     <a class="btn-primary" href="{% url 'createCategory' %}">Adicionar Categoria</a>
 </header>
 
+{% include 'categoryFilter.html' %}
+
 {% if category_list %}
 <div class="table-container">
     <table class="data-table">

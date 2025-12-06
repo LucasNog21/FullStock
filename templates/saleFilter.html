@@ -1,0 +1,24 @@
+<form method="get" class="filter-form">
+
+    <div class="filter-group">
+        <label for="id_product_name">Produto</label>
+        {{ filter_form.product_name }}
+    </div>
+
+    <div class="filter-group">
+        <label for="id_user_name">Usuário</label>
+        {{ filter_form.user_name }}
+    </div>
+
+    <div class="filter-group">
+        <label for="id_start_date">Data inicial</label>
+        {{ filter_form.start_date }}
+    </div>
+
+    <div class="filter-group">
+        <label for="id_end_date">Data final</label>
+        {{ filter_form.end_date }}
+    </div>
+
+    <button type="submit" class="btn-primary">Filtrar</button>
+</form>

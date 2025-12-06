@@ -5,6 +5,8 @@
     <a class="btn-primary" href="{% url 'createOrder' %}">Adicionar Pedido</a>
 </header>
 
+{% include 'orderFilter.html' %}
+
 {% if order_list %}
 <div class="table-container">
     <table class="data-table">

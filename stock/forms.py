@@ -183,3 +183,97 @@ class ProductFilterForm(forms.Form):
             'class': 'form-control',
             'placeholder': 'Buscar por descrição...'
         })
+
+class SalesFilterForm(forms.Form):
+    product_name = forms.CharField(required=False, label="Produto")
+    user_name = forms.CharField(required=False, label="Usuário")
+    start_date = forms.DateField(required=False, label="Data inicial")
+    end_date = forms.DateField(required=False, label="Data final")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['product_name'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Nome do produto'
+        })
+        self.fields['user_name'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Nome do usuário'
+        })
+        self.fields['start_date'].widget.attrs.update({
+            'class': 'form-control',
+            'type': 'date'
+        })
+        self.fields['end_date'].widget.attrs.update({
+            'class': 'form-control',
+            'type': 'date'
+        })
+
+class OrderFilterForm(forms.Form):
+    provider_name = forms.CharField(required=False, label="Fornecedor")
+    product_name = forms.CharField(required=False, label="Produto")
+    status = forms.CharField(required=False, label="Status")
+    start_date = forms.DateField(required=False, label="Data inicial")
+    end_date = forms.DateField(required=False, label="Data final")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['provider_name'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Nome do fornecedor'
+        })
+        self.fields['product_name'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Nome do produto'
+        })
+        self.fields['status'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Status do pedido'
+        })
+        self.fields['start_date'].widget.attrs.update({
+            'class': 'form-control',
+            'type': 'date'
+        })
+        self.fields['end_date'].widget.attrs.update({
+            'class': 'form-control',
+            'type': 'date'
+        })
+
+class ProviderFilterForm(forms.Form):
+    name = forms.CharField(required=False, label="Nome")
+    cnpj = forms.CharField(required=False, label="CNPJ")
+    contact = forms.CharField(required=False, label="Contato")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['name'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Nome do fornecedor'
+        })
+        self.fields['cnpj'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'CNPJ'
+        })
+        self.fields['contact'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Telefone / Contato'
+        })
+
+class CategoryFilterForm(forms.Form):
+    name = forms.CharField(required=False, label="Nome da categoria")
+    description = forms.CharField(required=False, label="Descrição")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['name'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Nome da categoria'
+        })
+        self.fields['description'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Descrição'
+        })

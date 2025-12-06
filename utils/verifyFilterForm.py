@@ -24,4 +24,21 @@ def verifyFilter(filter_form, queryset):
         if final_date:
             queryset = queryset.filter(dueDate__lte=final_date)
 
+        cnpj = filter_form.cleaned_data.get('cnpj')
+        if cnpj:
+            queryset = queryset.filter(cnpj__icontains=cnpj)
+
+        contact = filter_form.cleaned_data.get('contact')
+        if contact:
+            queryset = queryset.filter(contact__icontains=contact)
+
+        provider = filter_form.cleaned_data.get('provider')
+        if provider:
+            queryset = queryset.filter(provider__icontains=provider)
+
+        product = filter_form.cleaned_data.get('product')
+        if product:
+            queryset = queryset.filter(product__icontains=product)
+
+        
     return queryset
