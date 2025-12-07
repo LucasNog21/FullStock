@@ -56,12 +56,19 @@ class Product(models.Model):
         return self.name
 
 class Order(models.Model):
+
+    STATUS = [
+        ('E', 'Entregue'),
+        ('P', 'Pendente'),
+        ('C', 'Cancelado'),
+    ]
+
     provider = models.ForeignKey(Provider, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     orderDate = models.DateField()
     quantity = models.IntegerField()
     value = models.IntegerField()
-    status = models.CharField(max_length=50)
+    status = models.CharField(max_length=1, choices= STATUS, default='P')
 
     def __str__(self):
         return f"{self.provider} - {self.product}"

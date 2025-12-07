@@ -1,5 +1,6 @@
 def verifyFilter(filter_form, queryset):
     if filter_form.is_valid():
+
         name = filter_form.cleaned_data.get('name')
         if name:
             queryset = queryset.filter(name__icontains=name)
@@ -40,5 +41,24 @@ def verifyFilter(filter_form, queryset):
         if product:
             queryset = queryset.filter(product__icontains=product)
 
-        
+        provider_name = filter_form.cleaned_data.get('provider_name')
+        if provider_name:
+            queryset = queryset.filter(provider__name__icontains=provider_name)
+
+        product_name = filter_form.cleaned_data.get('product_name')
+        if product_name:
+            queryset = queryset.filter(product__name__icontains=product_name)
+
+        status = filter_form.cleaned_data.get('status')
+        if status:
+            queryset = queryset.filter(status=status)
+
+        start_date = filter_form.cleaned_data.get('start_date')
+        if start_date:
+            queryset = queryset.filter(orderDate__gte=start_date)
+
+        end_date = filter_form.cleaned_data.get('end_date')
+        if end_date:
+            queryset = queryset.filter(orderDate__lte=end_date)
+
     return queryset

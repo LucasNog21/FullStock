@@ -130,7 +130,7 @@ class OrderForm(forms.ModelForm):
             'product': forms.Select(),
             'orderDate': forms.DateInput(attrs={'type': 'date'}),
             'quantity': forms.NumberInput(attrs={'placeholder': 'Quantidade'}),
-            'status': forms.TextInput(attrs={'placeholder': 'Status do pedido'}),
+            'status': forms.Select(),
         }
 
 class SaleForm(forms.ModelForm):
@@ -210,10 +210,22 @@ class SalesFilterForm(forms.Form):
             'type': 'date'
         })
 
+STATUS_CHOICES = [
+    ('', '--- Selecionar ---'),
+    ('pending', 'Pendente'),
+    ('approved', 'Aprovado'),
+    ('rejected', 'Rejeitado'),
+]
+        
+
 class OrderFilterForm(forms.Form):
     provider_name = forms.CharField(required=False, label="Fornecedor")
     product_name = forms.CharField(required=False, label="Produto")
-    status = forms.CharField(required=False, label="Status")
+    status = forms.ChoiceField(
+        required=False,
+        label="Status",
+        choices=[('', '--- Selecionar ---')] + Order.STATUS
+    )
     start_date = forms.DateField(required=False, label="Data inicial")
     end_date = forms.DateField(required=False, label="Data final")
 
@@ -229,8 +241,7 @@ class OrderFilterForm(forms.Form):
             'placeholder': 'Nome do produto'
         })
         self.fields['status'].widget.attrs.update({
-            'class': 'form-control',
-            'placeholder': 'Status do pedido'
+            'class': 'form-control'
         })
         self.fields['start_date'].widget.attrs.update({
             'class': 'form-control',
