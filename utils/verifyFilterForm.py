@@ -1,64 +1,70 @@
 def verifyFilter(filter_form, queryset):
-    if filter_form.is_valid():
 
-        name = filter_form.cleaned_data.get('name')
-        if name:
-            queryset = queryset.filter(name__icontains=name)
 
-        description = filter_form.cleaned_data.get('description')
-        if description:
-            queryset = queryset.filter(description__icontains=description)
+    if not filter_form.is_valid():
+        return queryset
 
-        initial_price = filter_form.cleaned_data.get('initial_price')
-        if initial_price is not None:
-            queryset = queryset.filter(salePrice__gte=initial_price)
+    data = filter_form.cleaned_data
 
-        final_price = filter_form.cleaned_data.get('final_price')
-        if final_price is not None:
-            queryset = queryset.filter(salePrice__lte=final_price)
+    name = data.get('name')
+    if name and queryset.model._meta.get_field('name', None):
+        queryset = queryset.filter(name__icontains=name)
 
-        initial_date = filter_form.cleaned_data.get('initial_date')
-        if initial_date:
-            queryset = queryset.filter(dueDate__gte=initial_date)
+    description = data.get('description')
+    if description and hasattr(queryset.model, 'description'):
+        queryset = queryset.filter(description__icontains=description)
 
-        final_date = filter_form.cleaned_data.get('final_date')
-        if final_date:
-            queryset = queryset.filter(dueDate__lte=final_date)
+    cnpj = data.get('cnpj')
+    if cnpj and hasattr(queryset.model, 'cnpj'):
+        queryset = queryset.filter(cnpj__icontains=cnpj)
 
-        cnpj = filter_form.cleaned_data.get('cnpj')
-        if cnpj:
-            queryset = queryset.filter(cnpj__icontains=cnpj)
+    contact = data.get('contact')
+    if contact and hasattr(queryset.model, 'contact'):
+        queryset = queryset.filter(contact__icontains=contact)
 
-        contact = filter_form.cleaned_data.get('contact')
-        if contact:
-            queryset = queryset.filter(contact__icontains=contact)
+    provider = data.get('provider_name') or data.get('provider')
+    if provider and hasattr(queryset.model, 'provider'):
+        queryset = queryset.filter(provider__name__icontains=provider)
 
-        provider = filter_form.cleaned_data.get('provider')
-        if provider:
-            queryset = queryset.filter(provider__icontains=provider)
+    product = data.get('product_name') or data.get('product')
+    if product and hasattr(queryset.model, 'product'):
+        queryset = queryset.filter(product__name__icontains=product)
 
-        product = filter_form.cleaned_data.get('product')
-        if product:
-            queryset = queryset.filter(product__icontains=product)
+    initial_price = data.get('initial_price')
+    if initial_price is not None and hasattr(queryset.model, 'salePrice'):
+        queryset = queryset.filter(salePrice__gte=initial_price)
 
-        provider_name = filter_form.cleaned_data.get('provider_name')
-        if provider_name:
-            queryset = queryset.filter(provider__name__icontains=provider_name)
+    final_price = data.get('final_price')
+    if final_price is not None and hasattr(queryset.model, 'salePrice'):
+        queryset = queryset.filter(salePrice__lte=final_price)
 
-        product_name = filter_form.cleaned_data.get('product_name')
-        if product_name:
-            queryset = queryset.filter(product__name__icontains=product_name)
+    status = data.get('status')
+    if status and hasattr(queryset.model, 'status'):
+        queryset = queryset.filter(status=status)
 
-        status = filter_form.cleaned_data.get('status')
-        if status:
-            queryset = queryset.filter(status=status)
+    start_date = data.get('start_date') or data.get('initial_date')
+    end_date = data.get('end_date') or data.get('final_date')
 
-        start_date = filter_form.cleaned_data.get('start_date')
+    if hasattr(queryset.model, 'dueDate'):
+        if start_date:
+            queryset = queryset.filter(dueDate__gte=start_date)
+        if end_date:
+            queryset = queryset.filter(dueDate__lte=end_date)
+
+    if hasattr(queryset.model, 'orderDate'):
         if start_date:
             queryset = queryset.filter(orderDate__gte=start_date)
-
-        end_date = filter_form.cleaned_data.get('end_date')
         if end_date:
             queryset = queryset.filter(orderDate__lte=end_date)
+
+    if hasattr(queryset.model, 'saleDate'):
+        if start_date:
+            queryset = queryset.filter(saleDate__gte=start_date)
+        if end_date:
+            queryset = queryset.filter(saleDate__lte=end_date)
+
+    user_name = data.get('user_name')
+    if user_name and hasattr(queryset.model, 'user'):
+        queryset = queryset.filter(user__username__icontains=user_name)
 
     return queryset

@@ -6,6 +6,8 @@
     <a class="btn-primary" href="{% url 'createSale' %}">Adicionar Venda</a>
 </header>
 
+{% include 'saleFilter.html' %}
+
 {% if sale_list %}
 <div class="table-container">
     <table class="data-table">

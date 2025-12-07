@@ -12,7 +12,7 @@ from django.views.generic import (
 from django.urls import reverse_lazy
 from utils.verifyFilterForm import verifyFilter
 from .models import AdaptedUser, Product, Order, Category, Provider, Sale
-from .forms import AdaptedUserCreationForm, LoginForm, ProductForm, ProductFilterForm, CategoryForm, ProviderForm, OrderForm, SaleForm, CategoryFilterForm, ProviderFilterForm, OrderFilterForm
+from .forms import AdaptedUserCreationForm, LoginForm, ProductForm, ProductFilterForm, CategoryForm, ProviderForm, OrderForm, SaleForm, CategoryFilterForm, ProviderFilterForm, OrderFilterForm, SalesFilterForm
 from django.db.models import Sum, F, ExpressionWrapper, FloatField
 
 @method_decorator(login_required, name='dispatch')
@@ -363,12 +363,20 @@ class SaleListView(ListView):
     paginate_by = 10
     ordering = ['id']
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        filter_form = SalesFilterForm(self.request.GET or None)
+        queryset = verifyFilter(filter_form, queryset)
+        return queryset
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        filter_form = SalesFilterForm(self.request.GET or None)
         paginator = context['paginator']
         page_obj = context['page_obj']
 
         context.update({
+            'filter_form' : filter_form,
             'start_index': page_obj.start_index(),
             'end_index': page_obj.end_index(),
             'total_items': paginator.count,
