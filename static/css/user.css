@@ -1,15 +1,18 @@
+
 .profile-wrapper,
 .user-profile-container,
 .profile-container {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 420px;
-    max-width: calc(100% - 40px);
-    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 16px;
+    width: 100%;
+    max-width: 100%;
+    position: relative; 
+    top: 0;
+    left: 0;
+    transform: none;
     box-sizing: border-box;
-    padding: 0;
 }
 
 .profile-card {
@@ -18,7 +21,9 @@
     border-radius: 20px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.15);
     border: 1px solid rgba(0,0,0,0.06);
-    width: 100%;
+    width: 420px;
+    max-width: 100%;
+    margin: auto;
 }
 
 .profile-header {
@@ -92,8 +97,8 @@
 .profile-actions {
     margin-top: 30px;
     display: flex;
-    justify-content: center;
-    gap: 20px;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .profile-actions a,
@@ -106,6 +111,10 @@
     cursor: pointer;
     border: none;
     transition: 0.2s ease-in-out;
+    width: auto !important; 
+    white-space: nowrap; 
+    display: inline-block;
+    white-space: nowrap;  
 }
 
 .btn-edit {
@@ -126,26 +135,28 @@
     background: #b91c1c;
 }
 
-
 @media (max-width: 480px) {
-    .profile-wrapper,
-    .user-profile-container,
-    .profile-container {
-        position: fixed;
-        top: 20%;
-        left: 50%;
-        transform: translateX(-50%);
-        width: calc(100% - 32px);
-    }
 
     .profile-card {
         padding: 20px;
         border-radius: 14px;
+        width: 100%;
     }
 
     .avatar {
         width: 72px;
         height: 72px;
         font-size: 32px;
+    }
+
+    .profile-actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .profile-actions a,
+    .profile-actions button {
+        width: 100%;
+        text-align: center;
     }
 }

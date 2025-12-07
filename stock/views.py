@@ -5,7 +5,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.models import Group
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
-from django.views import View
+from django.contrib.auth.views import LogoutView
 from django.views.generic import (
     TemplateView, ListView, CreateView, FormView, RedirectView, DeleteView, UpdateView, DetailView
 )
@@ -474,11 +474,10 @@ class LoginView(FormView):
             messages.error(self.request, 'Usuário ou senha inválidos')
             return self.form_invalid(form)
 
-class LogoutView(RedirectView):
-    pattern_name = 'login'
+class CustomLogoutView(LogoutView):
+    next_page = 'login'
 
-    def get(self, request, *args, **kwargs):
-        logout(request)
+    def dispatch(self, request, *args, **kwargs):
         messages.info(request, "Você saiu do sistema.")
-        return super().get(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 

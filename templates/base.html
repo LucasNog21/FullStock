@@ -86,10 +86,15 @@
                 </li>
 
                 <li>
-                    <a href="{% url 'logout' %}" class="nav-link logout">
-                       Sair
+                    <a href="#" class="nav-link logout"
+                    onclick="document.getElementById('logout-form').submit(); return false;">
+                        Sair
                     </a>
                 </li>
+
+                <form id="logout-form" action="{% url 'logout' %}" method="post" style="display:none;">
+                    {% csrf_token %}
+                </form>
 
             </ul>
         </nav>

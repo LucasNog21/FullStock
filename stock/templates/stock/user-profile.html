@@ -40,13 +40,17 @@
         </div>
 
         <div class="profile-actions">
-            <a href="{% url 'userUpdate' user.id %}" class="btn-edit">Editar Perfil</a>
+
+            <form action="{% url 'userUpdate' user.id %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn-edit">Editar Perfil</button>
+            </form>
 
             <form action="{% url 'userDelete' user.id %}" method="post">
                 {% csrf_token %}
                 <button type="submit" class="btn-delete">Excluir Conta</button>
             </form>
-        </div>
+
 
     </div>
 </div>
