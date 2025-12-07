@@ -13,13 +13,13 @@ class AdaptedUserAdmin(UserAdmin):
     search_fields = ("username", "name", "cpf", "email")
     ordering = ("username",)
 
-    fieldsets = UserAdmin.fieldsets + (
-        (None, {"fields": ("name", "cpf", "address", "birthDate")}),
-    )
-
-    add_fieldsets = UserAdmin.add_fieldsets + (
-        (None, {"fields": ("name", "cpf", "address", "birthDate")}),
-    )
+    fieldsets = UserAdmin.fieldsets 
+    add_fieldsets = (
+    (None, {
+        'classes': ('wide',),
+        'fields': ('username', 'email', 'password1', 'password2'),
+    }),
+)
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):

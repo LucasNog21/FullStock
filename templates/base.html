@@ -33,7 +33,10 @@
 
                     <div class="user-dropdown">
                         <a href="{% url 'userProfile' %}">Perfil</a>
-                        <a href="{% url 'logout' %}">Sair</a>
+                        <a href="#" class="nav-link logout"
+                            onclick="document.getElementById('logout-form').submit(); return false;">
+                                Sair
+                        </a>
                     </div>
                 </div>
                 {% endif %}

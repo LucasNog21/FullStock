@@ -1,70 +1,61 @@
 def verifyFilter(filter_form, queryset):
 
-
     if not filter_form.is_valid():
         return queryset
 
     data = filter_form.cleaned_data
+    model = queryset.model
 
-    name = data.get('name')
-    if name and queryset.model._meta.get_field('name', None):
-        queryset = queryset.filter(name__icontains=name)
+    simple_filters = {
+        'name': 'name__icontains',
+        'description': 'description__icontains',
+        'cnpj': 'cnpj__icontains',
+        'contact': 'contact__icontains',
+        'status': 'status',
+    }
 
-    description = data.get('description')
-    if description and hasattr(queryset.model, 'description'):
-        queryset = queryset.filter(description__icontains=description)
+    for form_field, filter_expr in simple_filters.items():
+        value = data.get(form_field)
+        model_field = filter_expr.split("__")[0]
 
-    cnpj = data.get('cnpj')
-    if cnpj and hasattr(queryset.model, 'cnpj'):
-        queryset = queryset.filter(cnpj__icontains=cnpj)
+        if value and hasattr(model, model_field):
+            queryset = queryset.filter(**{filter_expr: value})
 
-    contact = data.get('contact')
-    if contact and hasattr(queryset.model, 'contact'):
-        queryset = queryset.filter(contact__icontains=contact)
 
-    provider = data.get('provider_name') or data.get('provider')
-    if provider and hasattr(queryset.model, 'provider'):
-        queryset = queryset.filter(provider__name__icontains=provider)
+    related_filters = {
+        'provider_name': ('provider', 'provider__name__icontains'),
+        'provider': ('provider', 'provider__name__icontains'),
+        'product_name': ('product', 'product__name__icontains'),
+        'product': ('product', 'product__name__icontains'),
+        'user_name': ('user', 'user__username__icontains'),
+    }
 
-    product = data.get('product_name') or data.get('product')
-    if product and hasattr(queryset.model, 'product'):
-        queryset = queryset.filter(product__name__icontains=product)
+    for form_field, (related_field, filter_expr) in related_filters.items():
+        value = data.get(form_field)
+        if value and hasattr(model, related_field):
+            queryset = queryset.filter(**{filter_expr: value})
 
-    initial_price = data.get('initial_price')
-    if initial_price is not None and hasattr(queryset.model, 'salePrice'):
-        queryset = queryset.filter(salePrice__gte=initial_price)
 
-    final_price = data.get('final_price')
-    if final_price is not None and hasattr(queryset.model, 'salePrice'):
-        queryset = queryset.filter(salePrice__lte=final_price)
+    if hasattr(model, 'salePrice'):
+        initial_price = data.get('initial_price')
+        final_price = data.get('final_price')
 
-    status = data.get('status')
-    if status and hasattr(queryset.model, 'status'):
-        queryset = queryset.filter(status=status)
+        if initial_price is not None:
+            queryset = queryset.filter(salePrice__gte=initial_price)
 
+        if final_price is not None:
+            queryset = queryset.filter(salePrice__lte=final_price)
+
+
+    date_fields = ['dueDate', 'orderDate', 'saleDate']
     start_date = data.get('start_date') or data.get('initial_date')
     end_date = data.get('end_date') or data.get('final_date')
 
-    if hasattr(queryset.model, 'dueDate'):
-        if start_date:
-            queryset = queryset.filter(dueDate__gte=start_date)
-        if end_date:
-            queryset = queryset.filter(dueDate__lte=end_date)
-
-    if hasattr(queryset.model, 'orderDate'):
-        if start_date:
-            queryset = queryset.filter(orderDate__gte=start_date)
-        if end_date:
-            queryset = queryset.filter(orderDate__lte=end_date)
-
-    if hasattr(queryset.model, 'saleDate'):
-        if start_date:
-            queryset = queryset.filter(saleDate__gte=start_date)
-        if end_date:
-            queryset = queryset.filter(saleDate__lte=end_date)
-
-    user_name = data.get('user_name')
-    if user_name and hasattr(queryset.model, 'user'):
-        queryset = queryset.filter(user__username__icontains=user_name)
+    for field in date_fields:
+        if hasattr(model, field):
+            if start_date:
+                queryset = queryset.filter(**{f"{field}__gte": start_date})
+            if end_date:
+                queryset = queryset.filter(**{f"{field}__lte": end_date})
 
     return queryset
