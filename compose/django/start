@@ -6,9 +6,6 @@ set -o nounset
 
 python manage.py migrate
 
-echo "Carregando fixtures..."
-python manage.py loaddata FullStock/fixtures/*.json || echo "Nenhum fixture encontrado ou já carregado."
+python manage.py collectstatic --noinput
 
-python /stock/manage.py collectstatic --noinput
-
-exec /usr/local/bin/gunicorn core.wsgi --bind 0.0.0.0:5000 --chdir=/app
+exec /usr/local/bin/gunicorn project.wsgi --bind 0.0.0.0:5000 --chdir=/app
