@@ -15,6 +15,7 @@ from .models import AdaptedUser, Product, Order, Category, Provider, Sale
 from .forms import AdaptedUserCreationForm, LoginForm, ProductForm, ProductFilterForm, CategoryForm, ProviderForm, OrderForm, SaleForm, CategoryFilterForm, ProviderFilterForm, OrderFilterForm, SalesFilterForm
 from django.db.models import Sum, F, ExpressionWrapper, FloatField
 
+#Teste de projeto
 @method_decorator(login_required, name='dispatch')
 class ProductListView(ListView):
     model = Product
